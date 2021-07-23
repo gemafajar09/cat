@@ -5,12 +5,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Barang</h1>
+                            <h1>Mata Pelajaran</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">SWIMOC CAT</a></li>
-                                <li class="breadcrumb-item active">Barang</li>
+                                <li class="breadcrumb-item active">Mata Pelajaran</li>
                             </ol>
                         </div>
                     </div>
@@ -25,7 +25,7 @@
                             <!-- Default box -->
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title"><a class="btn btn-primary btn-sm text-white" href="{{ route('barang.create') }}"><i class="fa fa-plus"></i> Add</a></h3>
+                                    <h3 class="card-title"><a class="btn btn-primary btn-sm text-white" href="{{ route('mapel.create') }}"><i class="fa fa-plus"></i> Add</a></h3>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse"
                                             data-toggle="tooltip" title="Collapse">
@@ -42,23 +42,25 @@
                                         <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
                                     </div>
 
-                                    <table id="example1" class="table table-bordered table-striped yajra-example">
+                                    <table id="example1" class="table table-bordered table-striped example1">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Kode</th>
-                                                <th>Nama</th>
-                                                <th>Kategori</th>
-                                                <th>Satuan</th>
-                                                <th>Stok Awal</th>
-                                                <th>Stok Sisa</th>
-                                                <th>Harga Beli</th>
-                                                <th>Harga Jual</th>
-                                                <th>Foto</th>
+                                                <th>Mata Pelajaran</th>
                                                 <th>Option</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach($mapel as $no => $mpl)
+                                            <tr>
+                                                <td>{{ $no+1 }}</td>
+                                                <td>{{ $mpl->mapel_kategori }}</td>
+                                                <td>
+                                                    <a href="{{ route('mapel.edit', $mpl->mapel_id) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                                                    <button type="button" class="btn btn-danger btn-sm" onclick="mHapus('{{ route('mapel.delete', $mpl->mapel_id) }}')"><i class="fa fa-trash"></i> </button>
+                                                </td>
+                                            </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -115,38 +117,5 @@
                 setInterval(function(){ $('#message').hide(); }, 5000);
             </script>
             @endif
-
-            <script>
-                $(document).ready(function () {
-                    var table = $('.yajra-example').DataTable({
-                        processing: true,
-                        serverSide: true,
-                        ajax: "{{ route('barang.list') }}",
-                        columns: [
-                            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                            {data: 'barang_kode', name: 'barang_kode'},
-                            {data: 'barang_nama', name: 'barang_nama'},
-                            {data: 'kategori_nama', name: 'kategori_nama'},
-                            {data: 'barang_satuan', name: 'barang_satuan'},
-                            {data: 'barang_stok_awal', name: 'barang_stok_awal'},
-                            {data: 'barang_stok_sisa', name: 'barang_stok_sisa'},
-                            {data: 'barang_harga_beli', name: 'barang_harga_beli'},
-                            {data: 'barang_harga_jual', name: 'barang_harga_jual'},
-                            {
-                                data: 'foto', 
-                                name: 'foto', 
-                                orderable: true, 
-                                searchable: true
-                            },
-                            {
-                                data: 'option', 
-                                name: 'option', 
-                                orderable: true, 
-                                searchable: true
-                            },
-                        ]
-                    });
-                });
-            </script>
 
 @endsection
