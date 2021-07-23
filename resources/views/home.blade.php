@@ -1,4 +1,4 @@
-@extends('backend/index')
+@extends('frontend/index')
 
 @section('content')
 <div class="col-md-12">
