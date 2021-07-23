@@ -39,6 +39,14 @@ Route::prefix('cat-admin')->group(function () {
         Route::get('/mata-pelajaran/{mapel}', 'Backend\MapelController@edit')->name('mapel.edit');
         Route::put('/mata-pelajaran/{mapel}', 'Backend\MapelController@update')->name('mapel.update');
         Route::delete('/mata-pelajaran/{mapel}', 'Backend\MapelController@destroy')->name('mapel.delete');
+        
+        // submapel
+        Route::get('/sub-mata-pelajaran', 'Backend\SubmapelController@index')->name('submapel');
+        Route::get('/sub-mata-pelajaran/create', 'Backend\SubmapelController@create')->name('submapel.create');
+        Route::post('/sub-mata-pelajaran', 'Backend\SubmapelController@store')->name('submapel.store');
+        Route::get('/sub-mata-pelajaran/{submapel}', 'Backend\SubmapelController@edit')->name('submapel.edit');
+        Route::put('/sub-mata-pelajaran/{submapel}', 'Backend\SubmapelController@update')->name('submapel.update');
+        Route::delete('/sub-mata-pelajaran/{submapel}', 'Backend\SubmapelController@destroy')->name('submapel.delete');
 
 
 

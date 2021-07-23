@@ -32,7 +32,7 @@
                             </a>
                         </li>
                         <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link {{ ($active == 'kategori-soal' || $active == 'mapel' || $active == 'supplier') ? 'active' : '' }}" >
+                            <a href="#" class="nav-link {{ ($active == 'kategori-soal' || $active == 'mapel' || $active == 'submapel') ? 'active' : '' }}" >
                                 <i class="nav-icon fas fa-box-open"></i>
                                 <p>
                                     Data Master
@@ -52,6 +52,14 @@
                                     <a href="{{ route('mapel') }}" class="nav-link {{ ($active == 'mapel') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Mata Pelajaran</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('submapel') }}" class="nav-link {{ ($active == 'submapel') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Sub Mata Pelajaran</p>
                                     </a>
                                 </li>
                             </ul>
