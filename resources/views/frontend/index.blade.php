@@ -8,7 +8,7 @@
 
     <title>AdminLTE 3 | Starter</title>
 
-    @include('backend/header')
+    @include('frontend/header')
     <style>
         @media (min-width:320px)  {
             body{
@@ -562,7 +562,7 @@
             </div>
         </div>
 
-    @include('backend/script')
+    @include('frontend/script')
     <script>
         var bool = false
         $('#nosoal').show();
