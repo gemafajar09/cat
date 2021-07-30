@@ -10,7 +10,9 @@
     <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
     <!-- Select2 -->
     <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
-
+    <!-- Summernote -->
+    <script src="{{ asset('plugins/summernote/summernote-bs4.min.js')}}"></script>
+    
     <script>
     $(function () {
         $(".example1").DataTable({
@@ -26,6 +28,11 @@
             "autoWidth": false,
             "responsive": true,
         });
+        // Summernote
+        $('.textarea').summernote({
+            height: 200
+        });
+
         $('.number').keyup(function (e) { 
             this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');
         });

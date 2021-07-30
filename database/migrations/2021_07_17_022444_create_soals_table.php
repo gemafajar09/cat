@@ -18,11 +18,13 @@ class CreateSoalsTable extends Migration
             $table->integer('soal_kategori_id');
             $table->integer('soal_mapel_id')->nullable()->default(0);
             $table->integer('soal_submapel_id')->nullable()->default(0);
-            $table->text('soal_ujian');
-            $table->text('soal_a');
-            $table->text('soal_b');
-            $table->text('soal_c');
-            $table->text('soal_d');
+            $table->enum('soal_ujian_tipe', ['text', 'file']);
+            $table->text('soal_ujian')->nullable();
+            $table->enum('soal_pilihan_tipe', ['text', 'file']);
+            $table->text('soal_a')->nullable();
+            $table->text('soal_b')->nullable();
+            $table->text('soal_c')->nullable();
+            $table->text('soal_d')->nullable();
             $table->text('soal_e')->nullable();
         });
     }
@@ -34,6 +36,6 @@ class CreateSoalsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tb_soal');
+        Schema::dropIfExists('tb_master_soal');
     }
 }

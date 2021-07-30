@@ -47,9 +47,33 @@ Route::prefix('cat-admin')->group(function () {
         Route::get('/sub-mata-pelajaran/{submapel}', 'Backend\SubmapelController@edit')->name('submapel.edit');
         Route::put('/sub-mata-pelajaran/{submapel}', 'Backend\SubmapelController@update')->name('submapel.update');
         Route::delete('/sub-mata-pelajaran/{submapel}', 'Backend\SubmapelController@destroy')->name('submapel.delete');
+        
+        // master soal
+        Route::get('/soal', 'Backend\SoalController@index')->name('soal');
+        Route::get('/soal/create', 'Backend\SoalController@create')->name('soal.create');
+        Route::post('/soal', 'Backend\SoalController@store')->name('soal.store');
+        Route::get('/soal/{soal}', 'Backend\SoalController@edit')->name('soal.edit');
+        Route::put('/soal/{soal}', 'Backend\SoalController@update')->name('soal.update');
+        Route::delete('/soal/{soal}', 'Backend\SoalController@destroy')->name('soal.delete');
 
 
+        // soal berdasarkan kategori
+        Route::get('/soal/kategori/{soal}', 'Backend\SoalController@soalKategori')->name('soal.kategori');
+        // api soal berdasarkan kategori
+        Route::get('soal/kategori-detail/{soal}', 'Backend\SoalController@apiSoalKategori')->name('soal.listSoalKategori');
+        
+        
+        // soal berdasarkan submapel
+        Route::get('/soal/sub-mata-pelajaran/{soal}', 'Backend\SoalController@soalSubmapel')->name('soal.submapel');
+        // api soal berdasarkan submapel
+        Route::get('soal/sub-mata-pelajaran-detail/{soal}', 'Backend\SoalController@apiSoalSubmapel')->name('soal.listSoalSubmapel');
+        Route::post('soal/sub-mata-pelajaran-cari', 'Backend\SoalController@apiSoalSubmapelCari')->name('soal.cariSubmapel');
+        // crud berdasarkan submapel
+        Route::get('/soal/sub-mata-pelajaran/{soal}/create', 'Backend\SoalController@createSubmapel')->name('soal.createSubmapel');
+        Route::post('/soal/sub-mata-pelajaran/', 'Backend\SoalController@storeSubmapel')->name('submapel.storeSubmapel');
 
+        
+        
     });
 
 });

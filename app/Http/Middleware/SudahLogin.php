@@ -18,7 +18,7 @@ class SudahLogin
         if (session()->has('token')) {
             return $next($request);
         } else {
-            return redirect("car-admin")->with("message", "Anda Belum Login");;
+            return redirect("cat-admin")->with("message", "Anda Belum Login");;
         }
     }   
 }
