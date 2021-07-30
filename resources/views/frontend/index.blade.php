@@ -16,7 +16,6 @@
     <div class="row" style="margin:5px;">  
         @yield('content')
     </div>
-    
 </body>
 
 </html>
