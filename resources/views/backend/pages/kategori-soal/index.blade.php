@@ -45,9 +45,9 @@
                                     <table id="example1" class="table table-bordered table-striped example1">
                                         <thead>
                                             <tr>
-                                                <th>No</th>
-                                                <th>Kategori Soal</th>
-                                                <th>Option</th>
+                                                <th style="width:5%">No</th>
+                                                <th style="width:85%">Kategori Soal</th>
+                                                <th style="width:10%">Option</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -55,7 +55,7 @@
                                             <tr>
                                                 <td>{{ $no+1 }}</td>
                                                 <td>{{ $ktg->kategori_soal }}</td>
-                                                <td>
+                                                <td style="text-align:center">
                                                     <a href="{{ route('kategori-soal.edit', $ktg->kategori_id) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
                                                     <button type="button" class="btn btn-danger btn-sm" onclick="mHapus('{{ route('kategori-soal.delete', $ktg->kategori_id) }}')"><i class="fa fa-trash"></i> </button>
                                                 </td>
