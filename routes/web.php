@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+// Frontend
 Route::get('/', 'LoginController@index');
 Route::get('/daftar', 'LoginController@daftar')->name('daftar');
 Route::post('/regis', 'LoginController@register')->name('regis');
@@ -11,6 +12,9 @@ Route::post('/login', 'LoginController@login')->name('login');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/ujian-mulai', 'HomeController@mulaiujian')->name('ujian-mulai');
 Route::get('/isisoal/{link}', 'HomeController@isisoal');
+
+
+
 
 // Backend
 Route::prefix('cat-admin')->group(function () {
@@ -78,11 +82,14 @@ Route::prefix('cat-admin')->group(function () {
         // api soal berdasarkan submapel
         Route::get('soal/sub-mata-pelajaran-detail/{soal}', 'Backend\SoalController@apiSoalSubmapel')->name('soal.listSoalSubmapel');
         Route::post('soal/sub-mata-pelajaran-cari', 'Backend\SoalController@apiSoalSubmapelCari')->name('soal.cariSubmapel');
-        // crud berdasarkan submapel
-        Route::get('/soal/sub-mata-pelajaran/{soal}/create', 'Backend\SoalController@createSubmapel')->name('soal.createSubmapel');
-        Route::post('/soal/sub-mata-pelajaran/', 'Backend\SoalController@storeSubmapel')->name('submapel.storeSubmapel');
-
         
+        // Token
+        Route::get('/token', 'Backend\TokenController@index')->name('token');
+        Route::get('/token/create', 'Backend\TokenController@create')->name('token.create');
+        Route::post('/token', 'Backend\TokenController@store')->name('token.store');
+        Route::get('/token/{token}', 'Backend\TokenController@edit')->name('token.edit');
+        Route::put('/token/{token}', 'Backend\TokenController@update')->name('token.update');
+        Route::delete('/token/{token}', 'Backend\TokenController@destroy')->name('token.delete');
         
     });
 
