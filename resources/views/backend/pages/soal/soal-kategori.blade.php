@@ -107,10 +107,10 @@
                         <table class="table table-bordered table-striped yajra-example">
                             <thead>
                                 <tr>
-                                    <th>No</th>
-                                    <th>Soal</th>
-                                    <th>Jawaban</th>
-                                    <th>Option</th>
+                                    <th style="width:5%">No</th>
+                                    <th style="width:50%%">Soal</th>
+                                    <th style="width:35%">Jawaban</th>
+                                    <th style="width:10%">Option</th>
                                 </tr>
                             </thead>
                             <tbody>

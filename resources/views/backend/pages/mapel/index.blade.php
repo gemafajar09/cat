@@ -45,9 +45,9 @@
                                     <table id="example1" class="table table-bordered table-striped example1">
                                         <thead>
                                             <tr>
-                                                <th>No</th>
-                                                <th>Mata Pelajaran</th>
-                                                <th>Option</th>
+                                                <th style="width:5%">No</th>
+                                                <th style="width:75%">Mata Pelajaran</th>
+                                                <th style="width:10%">Option</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -55,7 +55,7 @@
                                             <tr>
                                                 <td>{{ $no+1 }}</td>
                                                 <td>{{ $mpl->mapel_kategori }}</td>
-                                                <td>
+                                                <td style="text-align:center">
                                                     <a href="{{ route('mapel.edit', $mpl->mapel_id) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
                                                     <button type="button" class="btn btn-danger btn-sm" onclick="mHapus('{{ route('mapel.delete', $mpl->mapel_id) }}')"><i class="fa fa-trash"></i> </button>
                                                 </td>

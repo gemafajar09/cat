@@ -45,10 +45,10 @@
                                     <table id="example1" class="table table-bordered table-striped example1">
                                         <thead>
                                             <tr>
-                                                <th>No</th>
-                                                <th>Mata Pelajaran</th>
-                                                <th>Sub Mata Pelajaran</th>
-                                                <th>Option</th>
+                                                <th style="width:5%">No</th>
+                                                <th style="width:43%">Mata Pelajaran</th>
+                                                <th style="width:42%">Sub Mata Pelajaran</th>
+                                                <th style="width:10%">Option</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -57,7 +57,7 @@
                                                 <td>{{ $no+1 }}</td>
                                                 <td>{{ $smpl->mapel_kategori }}</td>
                                                 <td>{{ $smpl->submapel_kategori }}</td>
-                                                <td>
+                                                <td style="text-align:center">
                                                     <a href="{{ route('submapel.edit', $smpl->submapel_id) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
                                                     <button type="button" class="btn btn-danger btn-sm" onclick="mHapus('{{ route('submapel.delete', $smpl->submapel_id) }}')"><i class="fa fa-trash"></i> </button>
                                                 </td>

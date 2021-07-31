@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    @include('backend/script')  
+    @include('frontend/script')  
     <div class="row" style="margin:5px;">  
         @yield('content')
     </div>
