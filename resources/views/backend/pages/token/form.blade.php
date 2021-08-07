@@ -50,9 +50,16 @@
                                                 @enderror
                                             </div>
                                             <div class="form-group">
-                                                <label>Jam</label>
-                                                <input type="time" class="form-control @error('token_tanggal') {{ 'is-invalid' }} @enderror" name="token_jam" id="token_jam" value="{{ old('token_jam') ?? $token->token_jam ?? '' }}">
-                                                @error('token_jam')
+                                                <label>Jam Mulai</label>
+                                                <input type="time" class="form-control @error('token_tanggal') {{ 'is-invalid' }} @enderror" name="token_jam_mulai" id="token_jam_mulai" value="{{ old('token_jam_mulai') ?? $token->token_jam_mulai ?? '' }}">
+                                                @error('token_jam_mulai')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Jam Selesai</label>
+                                                <input type="time" class="form-control @error('token_tanggal') {{ 'is-invalid' }} @enderror" name="token_jam_selesai" id="token_jam_selesai" value="{{ old('token_jam_selesai') ?? $token->token_jam_selesai ?? '' }}">
+                                                @error('token_jam_selesai')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>

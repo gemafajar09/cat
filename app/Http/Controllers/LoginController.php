@@ -41,6 +41,7 @@ class LoginController extends Controller
             if($cek == TRUE)
             {
                 $r->session()->put("user_id", $cek->user_id);
+                $r->session()->put("user_nik", $cek->user_nik);
                 $r->session()->put("user_nama", $cek->user_nama);
                 return redirect('home')->with('pesan','Selamat Datang');
             }else{
@@ -64,7 +65,7 @@ class LoginController extends Controller
         $user_password1 = $r->user_password1;
         if($user_password == $user_password1)
         {
-            $pass = hash("sha512", md5($r->password));
+            $pass = hash("sha512", md5($r->user_password));
             DB::table('tb_user')->insert([
                 'user_nik' => $user_nik,
                 'user_nama' => $user_nama,
@@ -82,9 +83,10 @@ class LoginController extends Controller
 
     public function logout(Request $r)
     {
-    	$r->session()->forget('id_user');
-        $r->session()->forget('nama_user');
+    	$r->session()->forget('user_id');
+    	$r->session()->forget('user_nik');
+        $r->session()->forget('user_nama');
         $r->session()->flush();
-    	return redirect("index")->with('pesan', 'Success Logout.');
+    	return redirect("/")->with('pesan', 'Success Logout.');
     }
 }

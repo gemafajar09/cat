@@ -7,12 +7,15 @@ Route::get('/', 'LoginController@index');
 Route::get('/daftar', 'LoginController@daftar')->name('daftar');
 Route::post('/regis', 'LoginController@register')->name('regis');
 Route::post('/login', 'LoginController@login')->name('login');
+Route::get('/keluar', 'LoginController@logout')->name('keluar');
 
 // home
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/ujian-mulai', 'HomeController@mulaiujian')->name('ujian-mulai');
-Route::get('/isisoal/{link}', 'HomeController@isisoal');
+Route::post('/ujian-mulai', 'HomeController@mulaiujian')->name('ujian-mulai');
+Route::get('/isisoal/{idsoal}', 'HomeController@isisoal');
 
+// simpan ke tb_mulai_ujian_detail
+Route::post('/simpan-jawaban', 'HomeController@simpanJawaban')->name('simpanJawaban');
 
 
 

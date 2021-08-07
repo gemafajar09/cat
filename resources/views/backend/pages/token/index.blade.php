@@ -47,7 +47,8 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Tanggal</th>
-                                                <th>Jam</th>
+                                                <th>Jam Mulai</th>
+                                                <th>Jam Selesai</th>
                                                 <th>Token</th>
                                                 <th>Option</th>
                                             </tr>
@@ -57,7 +58,8 @@
                                             <tr>
                                                 <td>{{ $no+1 }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($mpl->token_tanggal)->isoFormat('D MMMM Y') }}</td>
-                                                <td>{{ $mpl->token_jam }}</td>
+                                                <td>{{ $mpl->token_jam_mulai }}</td>
+                                                <td>{{ $mpl->token_jam_selesai }}</td>
                                                 <td>{{ $mpl->token_key }}</td>
                                                 <td>
                                                     <a href="{{ route('token.edit', $mpl->token_id) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
