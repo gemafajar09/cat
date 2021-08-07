@@ -22,7 +22,7 @@
                         <div class="input-group-append">
                             <span class="input-group-text"><i class="fas fa-lock"></i></span>
                         </div>
-                    </div>
+                    </div> 
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" id="exampleCheck2">
                         <label class="form-check-label" for="exampleCheck2">Remember me</label>

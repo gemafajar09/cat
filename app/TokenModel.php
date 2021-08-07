@@ -10,7 +10,8 @@ class TokenModel extends Model
     protected $primaryKey = 'token_id';
     protected $fillable = [
         'token_tanggal',
-        'token_jam',
+        'token_jam_mulai',
+        'token_jam_selesai',
         'token_key',
     ];
     public $timestamps = false;

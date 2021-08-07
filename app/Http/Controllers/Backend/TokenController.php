@@ -32,7 +32,8 @@ class TokenController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'token_tanggal'         => 'required',
-            'token_jam'         => 'required',
+            'token_jam_mulai'         => 'required',
+            'token_jam_selesai'         => 'required',
             'token_key'         => 'required',
         ]);
 
@@ -44,7 +45,8 @@ class TokenController extends Controller
         }
 
         $token->token_tanggal = $request->input('token_tanggal');
-        $token->token_jam = $request->input('token_jam');
+        $token->token_jam_mulai = $request->input('token_jam_mulai');
+        $token->token_jam_selesai = $request->input('token_jam_selesai');
         $token->token_key = $request->input('token_key');
         $token->save();
 
@@ -70,7 +72,8 @@ class TokenController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'token_tanggal'         => 'required',
-            'token_jam'         => 'required',
+            'token_jam_mulai'         => 'required',
+            'token_jam_selesai'         => 'required',
             'token_key'         => 'required',
         ]);
 
@@ -82,7 +85,8 @@ class TokenController extends Controller
         }
 
         $token->token_tanggal = $request->input('token_tanggal');
-        $token->token_jam = $request->input('token_jam');
+        $token->token_jam_mulai = $request->input('token_jam_mulai');
+        $token->token_jam_selesai = $request->input('token_jam_selesai');
         $token->token_key = $request->input('token_key');
         $token->save();
 

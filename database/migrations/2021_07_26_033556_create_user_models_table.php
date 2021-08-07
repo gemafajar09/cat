@@ -15,7 +15,7 @@ class CreateUserModelsTable extends Migration
     {
         Schema::create('tb_user', function (Blueprint $table) {
             $table->id('user_id');
-            $table->integer('user_nik');
+            $table->string('user_nik',20);
             $table->string('user_nama');
             $table->string('user_no_hp');
             $table->string('user_email');

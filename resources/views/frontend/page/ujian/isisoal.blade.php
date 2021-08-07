@@ -2,19 +2,16 @@
     <p>
         <h3>TIU <hr></h3>
         <h5>
-            1.  Semua siswa SMAN 1 Yogyakarta mengikuti upacara bendera. Nana siswa SMAN 1 Yogyakarta. Jadi...
+            {!!$soal->soal_ujian!!}
         </h5>
     </p>
-    <input type="radio" name="pilihan"> A. Belum tentu Nana mengikuti upacara bendera 
-    <br>
-    <input type="radio" name="pilihan"> B. Nana tidak mengikuti upacara bendera
-    <br>
-    <input type="radio" name="pilihan"> C. Nana mungkin mengikuti upacara bendera
-    <br>
-    <input type="radio" name="pilihan"> D. Nana mengikuti upacara bendera
-    <br>
-    <input type="radio" name="pilihan"> E. Tidak dapat ditarik kesimpulan
+    <input type="radio" value="a" name="pilihan"> A. {!! $soal->soal_a !!}
+    <input type="radio" value="b" name="pilihan"> B. {!! $soal->soal_b !!}
+    <input type="radio" value="c" name="pilihan"> C. {!! $soal->soal_c !!}
+    <input type="radio" value="d" name="pilihan"> D. {!! $soal->soal_d !!}
+    <input type="radio" value="e" name="pilihan"> E. {!! $soal->soal_e !!}
+    <br><br><br>
 </div>
 <div class="raguragu" style="margin-bottom:1em;">
-    <input type="checkbox"> Ragu-Ragu
+    <input id="ragu" value="1" type="checkbox"> Ragu-Ragu
 </div>

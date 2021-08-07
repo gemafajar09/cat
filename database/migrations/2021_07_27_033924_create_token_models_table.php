@@ -16,7 +16,8 @@ class CreateTokenModelsTable extends Migration
         Schema::create('tb_token', function (Blueprint $table) {
             $table->id('token_id');
             $table->date('token_tanggal');
-            $table->string('token_jam');
+            $table->time('token_jam_mulai');
+            $table->time('token_jam_selesai');
             $table->string('token_key');
         });
     }

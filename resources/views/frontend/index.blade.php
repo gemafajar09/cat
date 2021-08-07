@@ -13,6 +13,11 @@
 
 <body>
     @include('frontend/script')  
+    @if(session('pesan') == TRUE)
+        <script>
+            alert("{{session('pesan')}}")
+        </script>
+    @endif
     <div class="row" style="margin:5px;">  
         @yield('content')
     </div>
