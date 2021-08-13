@@ -24,7 +24,10 @@ class HomeController extends Controller
             {
                 return back()->with('pesan', 'Waktu Ujian Telah Berakhir');
             }else{
-                $data['soal'] = DB::select('SELECT a.soal_id FROM `tb_master_soal` a LEFT JOIN tb_kategori_soal b ON a.soal_kategori_id=b.kategori_id');
+                $soal = DB::select('SELECT a.soal_id FROM `tb_master_soal` a LEFT JOIN tb_kategori_soal b ON a.soal_kategori_id=b.kategori_id');
+
+                // =======================
+                $data['soal'] = $soal;
                 $data['jamMulai'] = date("H:i:s");
                 $data['jamSelesai'] = $cektoken->token_jam_selesai;
 
@@ -50,9 +53,38 @@ class HomeController extends Controller
         }
     }
 
-    public function isisoal($id)
+    public function isisoal($id,$mulai_ujian_id)
     {
-        $data['soal'] = DB::table('tb_master_soal')->where('soal_id',$id)->first();
+        // hitung jumlah terjawab dan tidak
+        $soal = DB::table('tb_master_soal')->select(DB::raw('COUNT(soal_id) as jumlah'))->first();
+        $dijawab = DB::table('tb_mulai_ujian_detail')->select(DB::raw('COUNT(soal_id) as dijawab'))->where('mulai_ujian_detail_ragu_ragu',0)->where('mulai_ujian_id',$mulai_ujian_id)->first();
+        $raguragu = DB::table('tb_mulai_ujian_detail')->select(DB::raw('COUNT(soal_id) as raguragu'))->where('mulai_ujian_detail_ragu_ragu',1)->where('mulai_ujian_id',$mulai_ujian_id)->first();
+        $belumdijawab = $soal->jumlah - $dijawab->dijawab - $raguragu->raguragu;
+        $datajawaban = array(
+            'dijawab' => $dijawab->dijawab,
+            'ragu_ragu' => $raguragu->raguragu,
+            'belumdijawab' => $belumdijawab
+        );
+        $data['hasiljawaban'] = $datajawaban;
+        // ===============================
+        $soal = DB::select('SELECT a.soal_id FROM `tb_master_soal` a LEFT JOIN tb_kategori_soal b ON a.soal_kategori_id=b.kategori_id');
+        $jawab = array();
+        $data['soal'] = DB::table('tb_master_soal')->join('tb_kategori_soal','tb_kategori_soal.kategori_id','tb_master_soal.soal_kategori_id')->where('tb_master_soal.soal_id',$id)->first();
+        // cek apakah soal sudah di jawab atau belum
+        $cekisian = DB::table('tb_mulai_ujian_detail')->where('mulai_ujian_id',$mulai_ujian_id)->where('soal_id',$id)->first();
+        if($cekisian == null)
+        {
+            $jawab = array(
+                'mulai_ujian_detail_jawaban' => '',
+                'mulai_ujian_detail_ragu_ragu' => ''
+            );
+        }else{
+            $jawab = array(
+                'mulai_ujian_detail_jawaban' => $cekisian->mulai_ujian_detail_jawaban,
+                'mulai_ujian_detail_ragu_ragu' => $cekisian->mulai_ujian_detail_ragu_ragu
+            );
+        }
+        $data['cekisian'] = $jawab;
         return view('frontend/page/ujian/isisoal',$data);
     }
     
@@ -81,5 +113,19 @@ class HomeController extends Controller
 
 
         return response()->json('success');
+    }
+
+    public function cekJawaban(Request $request){
+
+        $data = DB::table('tb_mulai_ujian_detail')
+                ->where('soal_id', $request->soal_id)
+                ->where('mulai_ujian_id', $request->mulai_ujian_id)
+                ->first();
+
+        return json_encode([
+            'data' => $data,
+        ]);
+
+
     }
 }
