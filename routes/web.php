@@ -12,10 +12,11 @@ Route::get('/keluar', 'LoginController@logout')->name('keluar');
 // home
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/ujian-mulai', 'HomeController@mulaiujian')->name('ujian-mulai');
-Route::get('/isisoal/{idsoal}', 'HomeController@isisoal');
+Route::get('/isisoal/{idsoal}/{idujian}', 'HomeController@isisoal');
 
 // simpan ke tb_mulai_ujian_detail
 Route::post('/simpan-jawaban', 'HomeController@simpanJawaban')->name('simpanJawaban');
+Route::post('/cek-jawaban', 'HomeController@cekJawaban')->name('cekJawaban');
 
 
 
