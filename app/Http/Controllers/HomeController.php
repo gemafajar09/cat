@@ -111,7 +111,6 @@ class HomeController extends Controller
             ]);
         }   
 
-
         return response()->json('success');
     }
 
@@ -127,5 +126,10 @@ class HomeController extends Controller
         ]);
 
 
+    }
+
+    public function nilaiskor()
+    {
+        return view('frontend/page/ujian/nilaiskor');
     }
 }

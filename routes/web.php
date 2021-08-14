@@ -18,7 +18,8 @@ Route::get('/isisoal/{idsoal}/{idujian}', 'HomeController@isisoal');
 Route::post('/simpan-jawaban', 'HomeController@simpanJawaban')->name('simpanJawaban');
 Route::post('/cek-jawaban', 'HomeController@cekJawaban')->name('cekJawaban');
 
-
+// nilai skor ujian
+Route::get('/nilai-skor', 'HomeController@nilaiskor')->name('nilai-skor');
 
 // Backend
 Route::prefix('cat-admin')->group(function () {
