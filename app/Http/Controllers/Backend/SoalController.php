@@ -11,7 +11,8 @@ use App\Soal;
 use App\SoalSkor;
 use DB;
 use DataTables;
-
+use App\Imports\SoalImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SoalController extends Controller
 {
@@ -650,4 +651,12 @@ class SoalController extends Controller
     }
 
     
+    // import
+    public function importSoal(Request $request){
+        Excel::import(new SoalImport, $request->file('soal_import'));
+        return redirect()
+            ->back()
+            ->with('message', 'Data berhasil diimport');
+    }
+
 }
