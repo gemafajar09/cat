@@ -11,7 +11,7 @@
             <input type="hidden" id="id_selanjutnya">
             <input type="hidden" id="id_sekarang">
             <button id="lanjut" style="margin-bottom:1em;color:white;" type="button" onclick="selanjutnya()" class="nextsoal">Selanjutnya</button>
-            <button id="selesai" style="margin-bottom:1em;color:white;display:none" type="button" onclick="" class="nextsoal">Selesaikan</button>
+            <button id="selesai" style="margin-bottom:1em;color:white;display:none" type="button" onclick="selesaikan()" class="nextsoal">Selesaikan</button>
         </div>
     </div>
     <div class="col-md-2 py-3">
@@ -49,8 +49,6 @@
 
         $(document).ready(function() {
             var detik = 00;
-            var menit = 00;
-            var jam = 2;
             isisoal(arrayKosong[0])
             hitung();
             
@@ -73,7 +71,10 @@
             {
                 setTimeout(hitung, 1000);
                 if (minutes < 5 && hours == 0) {
-                    var peringatan = 'style="color:red"';
+                    document.getElementById('waktu').style.color = '#ff0000'
+                };
+                if (minutes == 0 && hours == 0 && detik == 0) {
+                    window.location = '/nilai-skor'
                 };
                 $('#waktu').html('Sisa Waktu : '+ hours + ' : ' + minutes + ' : ' + detik );
                 detik--;
@@ -84,17 +85,12 @@
                         minutes = 59;
                         hours--;
                         if (hours < 0) {
-                            clearInterval();
+                            console.log('habis');
                         }
                     }
                 }
             }
         });
-
-        function clearInterval() 
-        {
-            alert('Please wait')
-        }
 
         function isisoal(soal)
         {
@@ -104,6 +100,10 @@
            $('#id_sekarang').val(soal)
            $('#isisoal').load("/isisoal/"+soal+"/"+mulai_ujian_id)
            cekjumlahsoal()
+           if(mulai_ujian_id != '')
+           {
+               $('#tampiljumlahterjawab').show()
+           }
         }
 
         function selanjutnya()
@@ -139,6 +139,47 @@
                 isisoal(soal)
                 ceksoaldijawab()
                 cekjumlahsoal()
+            } else { 
+                alert('Silahkan pilih jawaban terlebih dahulu')
+            }
+            // simpanjawaban(mulai_ujian_id, soal_sekarang, jawaban, ragu)
+        }
+
+        function selesaikan()
+        {   
+            // ambil variabel yg akan disimpan ke tb_mulai_ujian_detail
+            var mulai_ujian_id = $('#mulai_ujian_id').val();
+            var soal_id = $('#id_sekarang').val();
+            var mulai_ujian_detail_jawaban = $("input[name='pilihan']:checked").val();
+            var ragu = $('#ragu').is(":checked")         
+
+            // cek apakah selesai atau tidak
+            
+            // console.log(mulai_ujian_id, soal_id, mulai_ujian_detail_jawaban, ragu);
+            if(typeof(mulai_ujian_detail_jawaban) != 'undefined'){
+                var r = confirm("Apakah Anda Yakin Menyelesaikan Ujian?");
+                if (r == true) {
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route('simpanJawaban') }}",
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            'mulai_ujian_id' : mulai_ujian_id,
+                            'soal_id' : soal_id,
+                            'mulai_ujian_detail_jawaban' : mulai_ujian_detail_jawaban,
+                            'ragu' : (ragu == true) ? '1' : '0',
+                        },
+                        dataType: "JSON",
+                        success: function (response) {
+                            window.location = '/nilai-skor'
+                        }
+                    });
+                } else {
+                    alert('Silahkan Koreksi jawaban terlebih dahulu')
+                }
+                
+                // ambil variabel untuk lanjut ke soal berikutnya
+                
             } else { 
                 alert('Silahkan pilih jawaban terlebih dahulu')
             }
@@ -193,7 +234,6 @@
             }
         }
         ceksoaldijawab()
-
 
         // // mematikan function browser
         // $(document).bind("contextmenu",function(e) {
