@@ -25,8 +25,10 @@
                 <!-- Default box -->
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title"><a class="btn btn-primary btn-sm text-white"
-                                href="{{ route('soal.create') }}"><i class="fa fa-plus"></i> Add</a></h3>
+                        <h3 class="card-title">
+                            <a class="btn btn-primary btn-sm text-white" onclick="importSoal()"><i class="fa fa-plus"></i> Import Soal</a>
+                            <a class="btn btn-primary btn-sm text-white" href="{{ asset('dist/img/excel.csv') }}" download=""><i class="fa fa-download"></i> Contoh Excel</a>
+                        </h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
                                 title="Collapse">
@@ -100,11 +102,46 @@
     </div>
 </div>
 
+
+<!-- modal import -->
+<div class="modal fade" id="ModalImport" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Import Soal</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('soal.import') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                        <label>File CSV</label>
+                        <input type="file" class="form-control @error('soal_import') {{ 'is-invalid' }} @enderror" name="soal_import" id="soal_import">
+                        @error('soal_import')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <button type="submit" class="btn btn-sm btn-primary">Save</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     // untuk hapus data
     function mHapus(url) {
         $('#ModalHapus').modal()
         $('#formDelete').attr('action', url);
+    }
+
+    function importSoal() { 
+        $('#ModalImport').modal()
     }
 
 </script>

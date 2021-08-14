@@ -86,6 +86,9 @@ Route::prefix('cat-admin')->group(function () {
         // api soal berdasarkan submapel
         Route::get('soal/sub-mata-pelajaran-detail/{soal}', 'Backend\SoalController@apiSoalSubmapel')->name('soal.listSoalSubmapel');
         Route::post('soal/sub-mata-pelajaran-cari', 'Backend\SoalController@apiSoalSubmapelCari')->name('soal.cariSubmapel');
+
+        // import soal
+        Route::post('soal/import', 'Backend\SoalController@importSoal')->name('soal.import');
         
         // Token
         Route::get('/token', 'Backend\TokenController@index')->name('token');
