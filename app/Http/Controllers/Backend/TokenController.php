@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\TokenModel;
+use App\KategoriSoal;
 use DB;
 
 class TokenController extends Controller
@@ -13,10 +14,12 @@ class TokenController extends Controller
     public function index()
     {
         $token = TokenModel::all();
+        $kategorisoal = KategoriSoal::all();
 
         return view('backend/pages/token/index',[
             'active' => 'token',
             'token' => $token,
+            'kategorisoal' => $kategorisoal,
         ]);
     }
 
@@ -98,9 +101,11 @@ class TokenController extends Controller
 
     public function destroy(TokenModel $token)
     {
-
+        $id = $token->token_id;
         $token->forceDelete();
 
+        DB::table('tb_setting_soal')->where('token_id', $id)->delete();
+        
         return redirect()
             ->route('token')
             ->with('message', 'Data berhasil dihapus');
