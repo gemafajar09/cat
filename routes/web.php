@@ -99,6 +99,10 @@ Route::prefix('cat-admin')->group(function () {
         Route::put('/token/{token}', 'Backend\TokenController@update')->name('token.update');
         Route::delete('/token/{token}', 'Backend\TokenController@destroy')->name('token.delete');
         
+        // Setting Soal
+        Route::post('/setting-soal', 'Backend\SettingSoalController@store')->name('setting-soal.store');
+        Route::get('/setting-soal/{id}', 'Backend\SettingSoalController@edit')->name('setting-soal.edit');
+        
     });
 
 });
