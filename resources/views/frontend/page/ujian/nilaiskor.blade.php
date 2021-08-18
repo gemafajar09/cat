@@ -17,17 +17,17 @@
                                 <tr>
                                     <th style="width:40%">TWK</th>
                                     <td style="width:20%">:</td>
-                                    <th style="width:40%">80</th>
+                                    <th style="width:40%">{{$nilai['twk']}}</th>
                                 </tr>
                                 <tr>
                                     <th>TIU</th>
                                     <td>:</td>
-                                    <th>50</th>
+                                    <th>{{$nilai['tiu']}}</th>
                                 </tr>
                                 <tr>
                                     <th>TKP</th>
                                     <td>:</td>
-                                    <th>50</th>
+                                    <th>{{$nilai['tkp']}}</th>
                                 </tr>
                             </tbody>
                         </table>

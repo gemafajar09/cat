@@ -89,4 +89,28 @@ class LoginController extends Controller
         $r->session()->flush();
     	return redirect("/")->with('pesan', 'Success Logout.');
     }
+
+    // login android
+    public function loginApp(Request $r)
+    {
+        $validator = Validator::make($r->all(),$this->rules);
+        if($validator->fails()){
+            return response()->json(['pesan' => 'Silahkan Login Kembali']);
+        }else{
+            $user_nik = $r->user_nik;
+            $user_password = hash("sha512", md5($r->user_password));
+    
+            $cek = DB::table('tb_user')->where('user_nik',$user_nik)->where('user_password',$user_password)->first();
+            if($cek == TRUE)
+            {
+                return response()->json(array(
+                    'user_nik' => $cek->user_nik,
+                    'user_nama' => $cek->user_nama,
+                    'user_id' => $cek->user_id
+                ));
+            }else{
+                return response()->json(['pesan' => 'Silahkan Login Kembali']);
+            }
+        }
+    }
 }

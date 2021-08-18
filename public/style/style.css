@@ -259,3 +259,185 @@
     color: white;
     background-color: #21ddda;
 }
+
+ /* end only demo styles */
+
+ .radio-custom-a,
+ .radio-custom-b,
+ .radio-custom-c,
+ .radio-custom-d,
+ .radio-custom-e {
+     opacity: 0;
+     position: absolute;
+ }
+
+ .radio-custom-a,
+ .radio-custom-label-a,
+ .radio-custom-b,
+ .radio-custom-label-b,
+ .radio-custom-c,
+ .radio-custom-label-c,
+ .radio-custom-d,
+ .radio-custom-label-d,
+ .radio-custom-e,
+ .radio-custom-label-e {
+     display: inline-block;
+     vertical-align: middle;
+     margin: 5px;
+     cursor: pointer;
+ }
+
+ .radio-custom-label-a,
+ .radio-custom-label-b,
+ .radio-custom-label-c,
+ .radio-custom-label-d,
+ .radio-custom-label-e {
+     position: relative;
+ }
+
+ .radio-custom-a+.radio-custom-label-a:before {
+     content: '';
+     background: #fff;
+     border: 2px solid #ddd;
+     display: inline-block;
+     vertical-align: middle;
+     width: 35px;
+     height: 35px;
+     padding: 3px;
+     margin-right: 10px;
+     text-align: center;
+ }
+
+ .radio-custom-b+.radio-custom-label-b:before {
+     content: '';
+     background: #fff;
+     border: 2px solid #ddd;
+     display: inline-block;
+     vertical-align: middle;
+     width: 35px;
+     height: 35px;
+     padding: 3px;
+     margin-right: 10px;
+     text-align: center;
+ }
+
+ .radio-custom-c+.radio-custom-label-c:before {
+     content: '';
+     background: #fff;
+     border: 2px solid #ddd;
+     display: inline-block;
+     vertical-align: middle;
+     width: 35px;
+     height: 35px;
+     padding: 3px;
+     margin-right: 10px;
+     text-align: center;
+ }
+
+ .radio-custom-d+.radio-custom-label-d:before {
+     content: '';
+     background: #fff;
+     border: 2px solid #ddd;
+     display: inline-block;
+     vertical-align: middle;
+     width: 35px;
+     height: 35px;
+     padding: 3px;
+     margin-right: 10px;
+     text-align: center;
+ }
+
+ .radio-custom-e+.radio-custom-label-e:before {
+     content: '';
+     background: #fff;
+     border: 2px solid #ddd;
+     display: inline-block;
+     vertical-align: middle;
+     width: 35px;
+     height: 35px;
+     padding: 3px;
+     margin-right: 10px;
+     text-align: center;
+ }
+
+
+ .radio-custom-a+.radio-custom-label-a:before {
+     border-radius: 50%;
+     content: "A";
+     color: #bbb;
+     font-size: 16px;
+ }
+
+ .radio-custom-b+.radio-custom-label-b:before {
+     border-radius: 50%;
+     content: "B";
+     color: #bbb;
+     font-size: 16px;
+ }
+
+ .radio-custom-c+.radio-custom-label-c:before {
+     border-radius: 50%;
+     content: "C";
+     color: #bbb;
+     font-size: 16px;
+ }
+
+ .radio-custom-d+.radio-custom-label-d:before {
+     border-radius: 50%;
+     content: "D";
+     color: #bbb;
+     font-size: 16px;
+ }
+
+ .radio-custom-e+.radio-custom-label-e:before {
+     border-radius: 50%;
+     content: "E";
+     color: #bbb;
+     font-size: 16px;
+ }
+
+
+ .radio-custom-a:checked+.radio-custom-label-a:before {
+     content: "\f00c";
+     font-family: 'FontAwesome';
+     border: 2px solid #3f51b5;
+     color: #3f51b5;
+ }
+
+ .radio-custom-b:checked+.radio-custom-label-b:before {
+     content: "\f00c";
+     font-family: 'FontAwesome';
+     border: 2px solid #3f51b5;
+     color: #3f51b5;
+ }
+
+ .radio-custom-c:checked+.radio-custom-label-c:before {
+     content: "\f00c";
+     font-family: 'FontAwesome';
+     border: 2px solid #3f51b5;
+     color: #3f51b5;
+ }
+
+ .radio-custom-d:checked+.radio-custom-label-d:before {
+     content: "\f00c";
+     font-family: 'FontAwesome';
+     border: 2px solid #3f51b5;
+     color: #3f51b5;
+ }
+
+ .radio-custom-e:checked+.radio-custom-label-e:before {
+     content: "\f00c";
+     font-family: 'FontAwesome';
+     border: 2px solid #3f51b5;
+     color: #3f51b5;
+ }
+
+
+ .radio-custom-a:focus+.radio-custom-label-a,
+ .radio-custom-b:focus+.radio-custom-label-b,
+ .radio-custom-c:focus+.radio-custom-label-c,
+ .radio-custom-d:focus+.radio-custom-label-d,
+ .radio-custom-e:focus+.radio-custom-label-e {
+     outline: 1px solid #ddd;
+     /* focus style */
+ }

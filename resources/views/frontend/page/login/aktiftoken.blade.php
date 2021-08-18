@@ -3,17 +3,12 @@
     <div class="col-md-12">
         @include('frontend/navbar')
     </div>
-    <div class="col-md-8 py-5">
+    <div class="col-md-8">
         <div class="card card-default">
             <div class="card-header bg-primary text-white">
                 Data Peserta
             </div>
             <div class="card-body">
-                <div class="alert alert-info">
-                    <p>
-                        Jika semua data subah betul atau benar silahkan inputkan token yang di dapat untuk melanjutkan ujian
-                    </p>
-                </div>
                 <label for="">Nama</label>
                 <input type="text" readonly value="{{session('user_nama')}}" class="form-control">
                 <label for="">NIK</label>
@@ -23,13 +18,13 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4 py-5">
+    <div class="col-md-4">
         <div class="card card-default">
             <div class="card-header bg-primary text-white">
                 Mulai Ujian
             </div>
             <div class="card-body">
-                <div class="alert alert-info">
+                <div class="alert alert-primary">
                     <p>Silahkan Masukan Token Ujian Untuk Memulai Ujian</p>
                 </div>
                 <form action="{{route('ujian-mulai')}}" method="post">

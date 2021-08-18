@@ -18,7 +18,7 @@
             alert("{{session('pesan')}}")
         </script>
     @endif
-    <div class="row" style="margin:5px;">  
+    <div class="row">  
         @yield('content')
     </div>
 </body>

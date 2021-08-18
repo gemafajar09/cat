@@ -1,4 +1,6 @@
-<link rel="stylesheet" href="{{asset('/plugins/fontawesome-free/css/all.min.css')}}">
-<link rel="stylesheet" href="{{asset('/dist/css/adminlte.min.css')}}">
-<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-<link rel="stylesheet" href="{{asset('/style/style.css')}}">
+<link rel="stylesheet" href="{{ asset('/css/w3.css') }}">
+<link rel="stylesheet" type="text/css" href="{{asset('/css/app.css')}}">
+<script type="text/javascript" src="{{asset('/js/app.js')}}"></script>
+<link rel="stylesheet" href="{{asset('/frontend/font-awesome/css/font-awesome.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('/css/style.css')}}">
+<script src="{{asset('/js/sweetalert.min.js')}}"></script>
