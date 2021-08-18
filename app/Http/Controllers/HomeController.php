@@ -114,7 +114,8 @@ class HomeController extends Controller
         return response()->json('success');
     }
 
-    public function cekJawaban(Request $request){
+    public function cekJawaban(Request $request)
+    {
 
         $data = DB::table('tb_mulai_ujian_detail')
                 ->where('soal_id', $request->soal_id)
@@ -128,8 +129,43 @@ class HomeController extends Controller
 
     }
 
-    public function nilaiskor()
+    public function nilaiskor($id_mulai_ujian)
     {
-        return view('frontend/page/ujian/nilaiskor');
+        // kelaurkan kategori soal
+        $kategorisoal = DB::table('tb_kategori_soal')->get();
+        $tiu = 0;
+        $twk = 0;
+        $tkp = 0;
+        foreach($kategorisoal as $key => $a)
+        {
+            // tampilkan berdasarkan kategori soal
+            $dataskor[$key] = DB::table('tb_mulai_ujian')
+                        ->join('tb_mulai_ujian_detail','tb_mulai_ujian.mulai_ujian_id','tb_mulai_ujian_detail.mulai_ujian_id')->join('tb_skorsoal','tb_skorsoal.skorsoal_soal_id','tb_mulai_ujian_detail.soal_id')
+                        ->join('tb_master_soal','tb_master_soal.soal_id','tb_mulai_ujian_detail.soal_id')
+                        ->where('tb_mulai_ujian.mulai_ujian_id',$id_mulai_ujian)
+                        ->where('tb_master_soal.soal_kategori_id',$a->kategori_id)
+                        ->select('tb_master_soal.soal_kategori_id','tb_mulai_ujian_detail.mulai_ujian_id','tb_skorsoal.skorsoal_a','tb_skorsoal.skorsoal_b','tb_skorsoal.skorsoal_c','tb_skorsoal.skorsoal_c','tb_skorsoal.skorsoal_d','tb_skorsoal.skorsoal_e','tb_mulai_ujian_detail.mulai_ujian_detail_jawaban')
+                        ->get();
+
+            foreach($dataskor[$key] as $i => $skor)
+            {
+                $hasiljawaban[$i] = 'skorsoal_'.$skor->mulai_ujian_detail_jawaban;
+                if($skor->soal_kategori_id == 1)
+                {
+                    $tiu += $skor->{$hasiljawaban[$i]};
+                }elseif($skor->soal_kategori_id == 2){
+                    $twk += $skor->{$hasiljawaban[$i]};
+                }elseif($skor->soal_kategori_id == 3){
+                    $tkp += $skor->{$hasiljawaban[$i]};
+                }
+            }
+        }
+        $data['nilai'] = array(
+            'tiu' => $tiu,
+            'twk' => $twk,
+            'tkp' => $tkp
+        );
+
+        return view('frontend/page/ujian/nilaiskor',$data);
     }
 }

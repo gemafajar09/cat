@@ -1,31 +1,47 @@
 @extends('frontend/index')
 @section('content')
-    <div class="col-md-12">
+@include('frontend/page/ujian/listsoal')
+    <!-- <div class="col-md-12">
         @include('frontend/navbar')
-    </div>
+    </div> -->
+    <input type="hidden" name="mulai_ujian_id" id="mulai_ujian_id" value="{{$mulai_ujian_id}}">
+    <input type="hidden" id="id_selanjutnya">
+    <input type="hidden" id="id_sekarang">
     
-    <div class="col-md-10 py-3">
-        <input type="hidden" name="mulai_ujian_id" id="mulai_ujian_id" value="{{$mulai_ujian_id}}">
-        <div id="soal">
-            <div id="isisoal"></div>
-            <input type="hidden" id="id_selanjutnya">
-            <input type="hidden" id="id_sekarang">
-            <button id="lanjut" style="margin-bottom:1em;color:white;" type="button" onclick="selanjutnya()" class="nextsoal">Selanjutnya</button>
-            <button id="selesai" style="margin-bottom:1em;color:white;display:none" type="button" onclick="selesaikan()" class="nextsoal">Selesaikan</button>
+    <div class="col-md-12">
+        <div class="card" style="border-radius: 0;min-height: 100vh;" id="soal">
+            <div class="card-header">
+                <h3> 
+                  Text Font : 
+                <button type="button" onclick="myFunctionA()" class="btn btn-default">30%</button>
+                <button type="button" onclick="myFunctionAA()" class="btn btn-default">70%</button>
+                <button type="button" onclick="myFunctionAAA()" class="btn btn-default">85%</button>
+                <button type="button" onclick="myFunctionAAAA()" class="btn btn-default">100%</button>
+                <button type="button" class="w3-button w3-blue w3-border  w3-right w3-large"><span id="demo">Loading...</span> </button>
+                <button type="button" class="w3-button w3-gray w3-border w3-right w3-large">TIME LEFT</button>
+              </h3> 
+            </div>
+            <div class="card-body">
+                <div id="isisoal"></div>
+            </div>
         </div>
     </div>
-    <div class="col-md-2 py-3">
-        <div class="row" id="bordersoal">
-            @foreach($soal as $i => $a)
-            <div class="col-xs-2 jarakpilihan">
-                <a role="button" onclick="isisoal('{{$a->soal_id, $a->soal_id}}')">
-                    <div class="pilihansoal" id="{{$a->soal_id}}" style="background-color:#f1f1f1; color:grey; cursor:pointer">
-                        <h3>{{$i+1}}</h3>
-                    </div>
-                </a>
-            </div>
-            @endforeach
+    <nav class="navbar navbar-expand-sm bg-light navbar-light fixed-bottom">
+        <div class="col-md-2">
+            <button class="btn w3-gray" name="kembali" value="kembali" type="submit"><i class="fa fa-arrow-left"> SOAL SEBELUMNYA</i></button>
         </div>
+        <div class="col-md-8">
+            <div  style=" width: 150px; margin:auto; background:yellow;border-radius: 5px;font-size: 14px;padding: 2px;">
+                <input type="checkbox"  id="ragu" name="ragu" style="margin-top: 10px;margin-left: 15px;">
+                <label  for="ragu">RAGU - RAGU</label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <button onclick="selanjutnya()" class="btn btn-primary">SOAL BERIKUTNYA <i class="fa fa-arrow-right"></i></button>
+        </div>
+    </nav>
+    <div class="icon-bar">
+        <span href="#" class="facebook " onclick="openNav()"><i class="fa fa-angle-double-left "></i> DAFTAR <br> SOAL</span>
     </div>
     <script>
         var arrayKosong = [];
@@ -45,6 +61,14 @@
                 bool = false
             }
             $("#nosoal").controlSidebar(bool);
+        }
+
+        function openNav() {
+            document.getElementById("myNav").style.width = "23%";
+        }
+
+        function closeNav() {
+            document.getElementById("myNav").style.width = "0%";
         }
 
         $(document).ready(function() {
@@ -71,12 +95,12 @@
             {
                 setTimeout(hitung, 1000);
                 if (minutes < 5 && hours == 0) {
-                    document.getElementById('waktu').style.color = '#ff0000'
+                    document.getElementById('demo').style.color = '#ff0000'
                 };
                 if (minutes == 0 && hours == 0 && detik == 0) {
                     window.location = '/nilai-skor'
                 };
-                $('#waktu').html('Sisa Waktu : '+ hours + ' : ' + minutes + ' : ' + detik );
+                $('#demo').html( hours + ' : ' + minutes + ' : ' + detik );
                 detik--;
                 if (detik < 0) {
                     detik = 59;
@@ -154,8 +178,6 @@
             var ragu = $('#ragu').is(":checked")         
 
             // cek apakah selesai atau tidak
-            
-            // console.log(mulai_ujian_id, soal_id, mulai_ujian_detail_jawaban, ragu);
             if(typeof(mulai_ujian_detail_jawaban) != 'undefined'){
                 var r = confirm("Apakah Anda Yakin Menyelesaikan Ujian?");
                 if (r == true) {
@@ -171,7 +193,7 @@
                         },
                         dataType: "JSON",
                         success: function (response) {
-                            window.location = '/nilai-skor'
+                            window.location = '/nilai-skor/'+mulai_ujian_id
                         }
                     });
                 } else {

@@ -1,21 +1,33 @@
 
-<div>
+<div class="card-bod">
     <p>
         <h3>{{$soal->kategori_soal}} <hr></h3>
         <h5>
             {!!$soal->soal_ujian!!}
         </h5>
     </p>
-    <input id="a" type="radio" value="a" name="pilihan"> A. {!! $soal->soal_a !!}
-    <input id="b" type="radio" value="b" name="pilihan"> B. {!! $soal->soal_b !!}
-    <input id="c" type="radio" value="c" name="pilihan"> C. {!! $soal->soal_c !!}
-    <input id="d" type="radio" value="d" name="pilihan"> D. {!! $soal->soal_d !!}
-    <input id="e" type="radio" value="e" name="pilihan"> E. {!! $soal->soal_e !!}
-    <br><br><br>
+    <div>
+        <input id="a" type="radio" class="radio-custom-a" value="a" name="pilihan">
+        <label class="radio-custom-label-a" for="a" > {!! $soal->soal_a !!} </label>
+    </div>
+    <div>
+        <input id="b" type="radio" class="radio-custom-b" value="b" name="pilihan">
+        <label class="radio-custom-label-b" for="b" > {!! $soal->soal_b !!} </label>
+    </div>
+    <div>
+        <input id="c" type="radio" class="radio-custom-c" value="c" name="pilihan">
+        <label class="radio-custom-label-c" for="c" > {!! $soal->soal_c !!} </label>
+    </div>
+    <div>
+        <input id="d" type="radio" class="radio-custom-d" value="d" name="pilihan">
+        <label class="radio-custom-label-d" for="d" > {!! $soal->soal_d !!} </label>
+    </div>
+    <div>
+        <input id="e" type="radio" class="radio-custom-e" value="e" name="pilihan">
+        <label class="radio-custom-label-e" for="e" > {!! $soal->soal_e !!} </label>
+    </div>
 </div>
-<div class="raguragu" style="margin-bottom:1em;">
-    <input id="ragu" value="1" type="checkbox"> Ragu-Ragu
-</div>
+
 
 <script>
     $(document).ready(function(){
