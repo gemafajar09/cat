@@ -182,7 +182,17 @@ class HomeController extends Controller
         {
             if($jamKini > $cektoken->token_jam_selesai)
             {
-                return response()->json(['pesan' => 'Waktu Ujian Berakhir']);
+                $data = array(
+                    'jamMulai'  => '',
+                    'jamSelesai' => '',
+                    'mulaiUjianId' => ''
+                );
+                return response()->json(
+                    array(
+                        'pesan' => 'Waktu Ujian Berakhir',
+                        'data' => $data
+                        )
+                );
             }else{
                 $soal = DB::select('SELECT a.soal_id FROM `tb_master_soal` a LEFT JOIN tb_kategori_soal b ON a.soal_kategori_id=b.kategori_id');
 
@@ -204,15 +214,29 @@ class HomeController extends Controller
                         'mulai_ujian_start' => date("H:i:s")
                     ]);
                 }        
-
-                return response()->json([
+                $data = array(
                     'jamMulai'  => $jamMulai,
                     'jamSelesai' => $jamSelesai,
                     'mulaiUjianId' => $mulai_ujian_id
-                ]);
+                );
+
+                return response()->json(array(
+                    'pesan' => 'Selamat Ujian',
+                    'data' => $data
+                    ));
             }
         }else{
-            return response()->json(['pesan' => 'Token Expired.']);
+            $data = array(
+                'jamMulai'  => '',
+                'jamSelesai' => '',
+                'mulaiUjianId' => ''
+            );
+            return response()->json(
+                array(
+                    'pesan' => 'Token Expired.',
+                    'data' => $data
+                    )
+            );
         }
     }
 }
