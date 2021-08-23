@@ -216,6 +216,18 @@
 
 <script>
 
+    let id_kategori = '{{ $kategori_id }}';
+    $('#soal_kategori_id').val(id_kategori).change();
+    if(id_kategori == '1'){
+        $('#soal_mapel_id_div').attr('style', 'display : block');
+        $('#soal_submapel_id_div').attr('style', 'display : block');
+    }else{
+
+        $('#soal_mapel_id_div').attr('style', 'display: none');
+        $('#soal_submapel_id_div').attr('style', 'display: none');
+    }
+
+
     $('#soal_kategori_id').change(function (e) { 
         e.preventDefault();
         let id_kategori = this.value;

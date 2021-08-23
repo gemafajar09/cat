@@ -30,16 +30,17 @@ class SoalController extends Controller
         ]);
     }
 
-    public function create()
+    public function create($id)
     {
         $kategori_soal = KategoriSoal::all();
         $mapel = Mapel::all();
-
+        
         return view('backend/pages/soal/form',[
             'active' => 'soal',
             'url' => 'soal.store',
             'kategori_soal' => $kategori_soal,
             'mapel' => $mapel,
+            'kategori_id' => $id,
         ]);
     }
 
