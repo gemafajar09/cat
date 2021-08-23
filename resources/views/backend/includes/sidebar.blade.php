@@ -73,7 +73,7 @@
                             </ul>
                         </li>
                         <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link {{ ($active == 'admin' || $active == '' || $active == '') ? 'active' : '' }}" >
+                            <a href="#" class="nav-link {{ ($active == 'admin' || $active == 'user' || $active == '') ? 'active' : '' }}" >
                                 <i class="nav-icon fa fa-users"></i>
                                 <p>
                                     Data User
@@ -85,6 +85,14 @@
                                     <a href="{{ route('admin') }}" class="nav-link {{ ($active == 'admin') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Admin</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('user') }}" class="nav-link {{ ($active == 'user') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>User</p>
                                     </a>
                                 </li>
                             </ul>

@@ -77,7 +77,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <div class="form-group">
+                                        <div class="form-group" id="soal_mapel_id_div" style="display : none;">
                                             <label>Mata Pelajaran</label>
                                             <select
                                                 class="custom-select select2bs4 @error('soal_mapel_id') {{ 'is-invalid' }} @enderror"
@@ -108,7 +108,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <div class="form-group">
+                                        <div class="form-group" id="soal_submapel_id_div" style="display : none;">
                                             <label>Sub Mata Pelajaran</label>
                                             <select
                                                 class="custom-select select2bs4 @error('soal_submapel_id') {{ 'is-invalid' }} @enderror"
@@ -215,6 +215,19 @@
 </section>
 
 <script>
+
+    $('#soal_kategori_id').change(function (e) { 
+        e.preventDefault();
+        let id_kategori = this.value;
+        if(id_kategori == '1'){
+            $('#soal_mapel_id_div').attr('style', 'display : block');
+            $('#soal_submapel_id_div').attr('style', 'display : block');
+        }else{
+            $('#soal_mapel_id_div').attr('style', 'display: none');
+            $('#soal_submapel_id_div').attr('style', 'display: none');
+        }
+    });
+
     // cari data submapel
     $('#soal_mapel_id').change(function (e) { 
         e.preventDefault();
@@ -242,7 +255,7 @@
             document.getElementById("soal_ujian_div").innerHTML += `
             <div class="form-group"> 
                 <label>Soal</label>
-                <textarea class="form-control textarea @error('soal_ujian') {{ 'is-invalid' }} @enderror" name="soal_ujian" id="soal_ujian" rows="2">{{ old('soal_ujian')  ??  $soal->soal_ujian ?? '' }}</textarea>
+                <textarea class="form-control textarea @error('soal_ujian') {{ 'is-invalid' }} @enderror" name="soal_ujian" id="soal_ujian" rows="10">{{ old('soal_ujian')  ??  $soal->soal_ujian ?? '' }}</textarea>
             </div>
             @error('soal_ujian')
             <div class="invalid-feedback">{{ $message }}</div>
@@ -278,7 +291,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Pilihan A</label>
-                        <textarea class="form-control textarea @error('soal_a') {{ 'is-invalid' }} @enderror" name="soal_a" id="soal_a" rows="2">{{ old('soal_a')  ?? $soal->soal_a ?? '' }}</textarea>
+                        <textarea class="form-control @error('soal_a') {{ 'is-invalid' }} @enderror" name="soal_a" id="soal_a" rows="10">{{ old('soal_a')  ?? $soal->soal_a ?? '' }}</textarea>
                     </div>
                     @error('soal_a')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -287,7 +300,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Pilihan B</label>
-                        <textarea class="form-control textarea @error('soal_b') {{ 'is-invalid' }} @enderror" name="soal_b" id="soal_b" rows="2">{{ old('soal_b')  ?? $soal->soal_b ?? '' }}</textarea>
+                        <textarea class="form-control @error('soal_b') {{ 'is-invalid' }} @enderror" name="soal_b" id="soal_b" rows="10">{{ old('soal_b')  ?? $soal->soal_b ?? '' }}</textarea>
                     </div>
                     @error('soal_b')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -296,7 +309,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Pilihan C</label>
-                        <textarea class="form-control textarea @error('soal_c') {{ 'is-invalid' }} @enderror" name="soal_c" id="soal_c" rows="2">{{ old('soal_c')  ?? $soal->soal_c ?? '' }}</textarea>
+                        <textarea class="form-control @error('soal_c') {{ 'is-invalid' }} @enderror" name="soal_c" id="soal_c" rows="10">{{ old('soal_c')  ?? $soal->soal_c ?? '' }}</textarea>
                     </div>
                     @error('soal_c')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -305,7 +318,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Pilihan D</label>
-                        <textarea class="form-control textarea @error('soal_d') {{ 'is-invalid' }} @enderror" name="soal_d" id="soal_d" rows="2">{{ old('soal_d')  ?? $soal->soal_d ?? '' }}</textarea>
+                        <textarea class="form-control @error('soal_d') {{ 'is-invalid' }} @enderror" name="soal_d" id="soal_d" rows="10">{{ old('soal_d')  ?? $soal->soal_d ?? '' }}</textarea>
                     </div>
                     @error('soal_d')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -314,7 +327,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Pilihan E</label>
-                        <textarea class="form-control textarea @error('soal_e') {{ 'is-invalid' }} @enderror" name="soal_e" id="soal_e" rows="2">{{ old('soal_e')  ?? $soal->soal_e ?? '' }}</textarea>
+                        <textarea class="form-control @error('soal_e') {{ 'is-invalid' }} @enderror" name="soal_e" id="soal_e" rows="10">{{ old('soal_e')  ?? $soal->soal_e ?? '' }}</textarea>
                     </div>
                     @error('soal_e')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -574,7 +587,7 @@
                 document.getElementById("soal_ujian_div").innerHTML += `
                 <div class="form-group"> 
                     <label>Soal</label>
-                    <textarea class="form-control textarea @error('soal_ujian') {{ 'is-invalid' }} @enderror" name="soal_ujian" id="soal_ujian" rows="2">{{ old('soal_ujian')  ??  $soal->soal_ujian ?? '' }}</textarea>
+                    <textarea class="form-control textarea @error('soal_ujian') {{ 'is-invalid' }} @enderror" name="soal_ujian" id="soal_ujian" rows="10">{{ old('soal_ujian')  ??  $soal->soal_ujian ?? '' }}</textarea>
                 </div>
                 @error('soal_ujian')
                 <div class="invalid-feedback">{{ $message }}</div>
@@ -607,7 +620,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Pilihan A</label>
-                            <textarea class="form-control textarea @error('soal_a') {{ 'is-invalid' }} @enderror" name="soal_a" id="soal_a" rows="2">{{ old('soal_a')  ?? $soal->soal_a ?? '' }}</textarea>
+                            <textarea class="form-control @error('soal_a') {{ 'is-invalid' }} @enderror" name="soal_a" id="soal_a" rows="10">{{ old('soal_a')  ?? $soal->soal_a ?? '' }}</textarea>
                         </div>
                         @error('soal_a')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -616,7 +629,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Pilihan B</label>
-                            <textarea class="form-control textarea @error('soal_b') {{ 'is-invalid' }} @enderror" name="soal_b" id="soal_b" rows="2">{{ old('soal_b')  ?? $soal->soal_b ?? '' }}</textarea>
+                            <textarea class="form-control @error('soal_b') {{ 'is-invalid' }} @enderror" name="soal_b" id="soal_b" rows="10">{{ old('soal_b')  ?? $soal->soal_b ?? '' }}</textarea>
                         </div>
                         @error('soal_b')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -625,7 +638,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Pilihan C</label>
-                            <textarea class="form-control textarea @error('soal_c') {{ 'is-invalid' }} @enderror" name="soal_c" id="soal_c" rows="2">{{ old('soal_c')  ?? $soal->soal_c ?? '' }}</textarea>
+                            <textarea class="form-control @error('soal_c') {{ 'is-invalid' }} @enderror" name="soal_c" id="soal_c" rows="10">{{ old('soal_c')  ?? $soal->soal_c ?? '' }}</textarea>
                         </div>
                         @error('soal_c')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -634,7 +647,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Pilihan D</label>
-                            <textarea class="form-control textarea @error('soal_d') {{ 'is-invalid' }} @enderror" name="soal_d" id="soal_d" rows="2">{{ old('soal_d')  ?? $soal->soal_d ?? '' }}</textarea>
+                            <textarea class="form-control @error('soal_d') {{ 'is-invalid' }} @enderror" name="soal_d" id="soal_d" rows="10">{{ old('soal_d')  ?? $soal->soal_d ?? '' }}</textarea>
                         </div>
                         @error('soal_d')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -643,7 +656,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Pilihan E</label>
-                            <textarea class="form-control textarea @error('soal_e') {{ 'is-invalid' }} @enderror" name="soal_e" id="soal_e" rows="2">{{ old('soal_e')  ?? $soal->soal_e ?? '' }}</textarea>
+                            <textarea class="form-control @error('soal_e') {{ 'is-invalid' }} @enderror" name="soal_e" id="soal_e" rows="10">{{ old('soal_e')  ?? $soal->soal_e ?? '' }}</textarea>
                         </div>
                         @error('soal_e')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -707,9 +720,6 @@
 
                 $('.invalid-feedback').css('display', 'block');
 
-                $('.textarea').summernote({
-                    height: 200
-                });
                 $('.number').keyup(function (e) { 
                     this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');
                 });
@@ -844,6 +854,15 @@
 @elseif(isset($soal))
     <script>
         $(document).ready(function () {
+            let id_kategori = $('#soal_kategori_id').val();
+            if(id_kategori == '1'){
+                $('#soal_mapel_id_div').attr('style', 'display : block');
+                $('#soal_submapel_id_div').attr('style', 'display : block');
+            }else{
+                $('#soal_mapel_id_div').attr('style', 'display: none');
+                $('#soal_submapel_id_div').attr('style', 'display: none');
+            }
+
             // cari data submapel
             let id = $('#soal_mapel_id').val();
             axios.post('{{ route("soal.cariSubmapel") }}', {
@@ -867,7 +886,7 @@
                 document.getElementById("soal_ujian_div").innerHTML += `
                 <div class="form-group"> 
                     <label>Soal</label>
-                    <textarea class="form-control textarea @error('soal_ujian') {{ 'is-invalid' }} @enderror" name="soal_ujian" id="soal_ujian" rows="2">{{ old('soal_ujian')  ??  $soal->soal_ujian ?? '' }}</textarea>
+                    <textarea class="form-control textarea @error('soal_ujian') {{ 'is-invalid' }} @enderror" name="soal_ujian" id="soal_ujian" rows="10">{{ old('soal_ujian')  ??  $soal->soal_ujian ?? '' }}</textarea>
                 </div>
                 @error('soal_ujian')
                 <div class="invalid-feedback">{{ $message }}</div>
@@ -898,7 +917,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Pilihan A</label>
-                            <textarea class="form-control textarea @error('soal_a') {{ 'is-invalid' }} @enderror" name="soal_a" id="soal_a" rows="2">{{ old('soal_a')  ?? $soal->soal_a ?? '' }}</textarea>
+                            <textarea class="form-control @error('soal_a') {{ 'is-invalid' }} @enderror" name="soal_a" id="soal_a" rows="10">{{ old('soal_a')  ?? $soal->soal_a ?? '' }}</textarea>
                         </div>
                         @error('soal_a')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -907,7 +926,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Pilihan B</label>
-                            <textarea class="form-control textarea @error('soal_b') {{ 'is-invalid' }} @enderror" name="soal_b" id="soal_b" rows="2">{{ old('soal_b')  ?? $soal->soal_b ?? '' }}</textarea>
+                            <textarea class="form-control @error('soal_b') {{ 'is-invalid' }} @enderror" name="soal_b" id="soal_b" rows="10">{{ old('soal_b')  ?? $soal->soal_b ?? '' }}</textarea>
                         </div>
                         @error('soal_b')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -916,7 +935,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Pilihan C</label>
-                            <textarea class="form-control textarea @error('soal_c') {{ 'is-invalid' }} @enderror" name="soal_c" id="soal_c" rows="2">{{ old('soal_c')  ?? $soal->soal_c ?? '' }}</textarea>
+                            <textarea class="form-control @error('soal_c') {{ 'is-invalid' }} @enderror" name="soal_c" id="soal_c" rows="10">{{ old('soal_c')  ?? $soal->soal_c ?? '' }}</textarea>
                         </div>
                         @error('soal_c')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -925,7 +944,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Pilihan D</label>
-                            <textarea class="form-control textarea @error('soal_d') {{ 'is-invalid' }} @enderror" name="soal_d" id="soal_d" rows="2">{{ old('soal_d')  ?? $soal->soal_d ?? '' }}</textarea>
+                            <textarea class="form-control @error('soal_d') {{ 'is-invalid' }} @enderror" name="soal_d" id="soal_d" rows="10">{{ old('soal_d')  ?? $soal->soal_d ?? '' }}</textarea>
                         </div>
                         @error('soal_d')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -934,7 +953,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Pilihan E</label>
-                            <textarea class="form-control textarea @error('soal_e') {{ 'is-invalid' }} @enderror" name="soal_e" id="soal_e" rows="2">{{ old('soal_e')  ?? $soal->soal_e ?? '' }}</textarea>
+                            <textarea class="form-control @error('soal_e') {{ 'is-invalid' }} @enderror" name="soal_e" id="soal_e" rows="10">{{ old('soal_e')  ?? $soal->soal_e ?? '' }}</textarea>
                         </div>
                         @error('soal_e')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -998,9 +1017,6 @@
 
                 $('.invalid-feedback').css('display', 'block');
 
-                $('.textarea').summernote({
-                    height: 200
-                });
                 $('.number').keyup(function (e) { 
                     this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');
                 });
