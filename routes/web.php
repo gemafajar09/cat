@@ -69,7 +69,7 @@ Route::prefix('cat-admin')->group(function () {
         
         // master soal
         Route::get('/soal', 'Backend\SoalController@index')->name('soal');
-        Route::get('/soal/create', 'Backend\SoalController@create')->name('soal.create');
+        Route::get('/soal/create/{id}', 'Backend\SoalController@create')->name('soal.create');
         Route::post('/soal', 'Backend\SoalController@store')->name('soal.store');
         Route::get('/soal/{soal}', 'Backend\SoalController@edit')->name('soal.edit');
         Route::put('/soal/{soal}', 'Backend\SoalController@update')->name('soal.update');

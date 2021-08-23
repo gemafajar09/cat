@@ -26,7 +26,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title"><a class="btn btn-primary btn-sm text-white"
-                                href="{{ route('soal.create') }}"><i class="fa fa-plus"></i> Add</a></h3>
+                                href="{{ route('soal.create', $kategori_soal->kategori_id) }}"><i class="fa fa-plus"></i> Add</a></h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
                                 title="Collapse">
