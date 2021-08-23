@@ -1,7 +1,7 @@
 @extends('frontend/index')
 @section('content')
     <div class="container">
-        <div id="form-login" class="card mx-auto">
+        <div id="form-login" class="card mx-auto" style="margin-top:20%">
             <div class="card-body">
                 <center>
                     <label id="label-login" for="">Login CAT</label>
@@ -13,14 +13,14 @@
                     <div class="input-group mb-3">
                         <input type="number" placeholder="NIK" name="user_nik" id="user_nik" class="form-control">
                         <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-id-card"></i></span>
+                            <span class="input-group-text"><i class="fa fa-user"></i></span>
                         </div>
                     </div>
                     <label for="">Password</label>
                     <div class="input-group mb-3">
                         <input type="password" placeholder="Password" name="user_password" id="user_password" class="form-control">
                         <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            <span class="input-group-text"><i class="fa fa-lock"></i></span>
                         </div>
                     </div> 
                     <div class="form-check">
@@ -28,7 +28,7 @@
                         <label class="form-check-label" for="exampleCheck2">Remember me</label>
                       </div>
                     <div align="right">
-                        <button id="btn-login" type="submit">Login</button>
+                        <button class="btn btn-primary" type="submit">Login</button>
                     </div>
                 </form>
             </div>
@@ -36,12 +36,12 @@
     </div>
     @if(session('pesan') == true)
         <script>
-            alert('<?= session('pesan') ?>')
+            toast.success('<?= session('pesan') ?>')
         </script>
     @endif
     @if(session('error') == true)
         <script>
-            alert('<?= session('error') ?>')
+            toast.error('<?= session('error') ?>')
         </script>
     @endif
 

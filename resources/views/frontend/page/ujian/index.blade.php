@@ -6,6 +6,7 @@
     </div> -->
     <input type="hidden" name="mulai_ujian_id" id="mulai_ujian_id" value="{{$mulai_ujian_id}}">
     <input type="hidden" id="id_selanjutnya">
+    <input type="hidden" id="id_sebelumnya">
     <input type="hidden" id="id_sekarang">
     
     <div class="col-md-12">
@@ -13,12 +14,12 @@
             <div class="card-header">
                 <h3> 
                   Text Font : 
-                <button type="button" onclick="myFunctionA()" class="btn btn-default">30%</button>
-                <button type="button" onclick="myFunctionAA()" class="btn btn-default">70%</button>
-                <button type="button" onclick="myFunctionAAA()" class="btn btn-default">85%</button>
-                <button type="button" onclick="myFunctionAAAA()" class="btn btn-default">100%</button>
-                <button type="button" class="w3-button w3-blue w3-border  w3-right w3-large"><span id="demo">Loading...</span> </button>
-                <button type="button" class="w3-button w3-gray w3-border w3-right w3-large">TIME LEFT</button>
+                <button type="button" onclick="myFunction30()" class="btn btn-default">30%</button>
+                <button type="button" onclick="myFunction70()" class="btn btn-default">70%</button>
+                <button type="button" onclick="myFunction85()" class="btn btn-default">85%</button>
+                <button type="button" onclick="myFunction100()" class="btn btn-default">100%</button>
+                <button type="button" style="background-color:aqua" class="w3-button w3-border  w3-right w3-large"><span id="demo">Loading...</span> </button>
+                <button type="button" style="background-color:grey; color:white" class="w3-button w3-border w3-right w3-large">TIME LEFT</button>
               </h3> 
             </div>
             <div class="card-body">
@@ -26,23 +27,27 @@
             </div>
         </div>
     </div>
+
     <nav class="navbar navbar-expand-sm bg-light navbar-light fixed-bottom">
         <div class="col-md-2">
-            <button class="btn w3-gray" name="kembali" value="kembali" type="submit"><i class="fa fa-arrow-left"> SOAL SEBELUMNYA</i></button>
+            <button class="btn btn-info" style="color:white" onclick="sebelumnya()" type="button"><i class="fa fa-arrow-left"> SOAL SEBELUMNYA</i></button>
         </div>
         <div class="col-md-8">
             <div  style=" width: 150px; margin:auto; background:yellow;border-radius: 5px;font-size: 14px;padding: 2px;">
-                <input type="checkbox"  id="ragu" name="ragu" style="margin-top: 10px;margin-left: 15px;">
+                <input type="checkbox" id="ragu" style="margin-top: 10px;margin-left: 15px;">
                 <label  for="ragu">RAGU - RAGU</label>
             </div>
         </div>
         <div class="col-md-2">
-            <button onclick="selanjutnya()" class="btn btn-primary">SOAL BERIKUTNYA <i class="fa fa-arrow-right"></i></button>
+            <button id="lanjut" onclick="selanjutnya()" class="btn btn-success">SOAL BERIKUTNYA <i class="fa fa-arrow-right"></i></button>
+            <button id="selesai" style="display:none" onclick="selesaikan()" class="btn btn-success">SELESAIKAN</button>
         </div>
     </nav>
+
     <div class="icon-bar">
-        <span href="#" class="facebook " onclick="openNav()"><i class="fa fa-angle-double-left "></i> DAFTAR <br> SOAL</span>
+        <span href="#" style="background-color:aqua" class="facebook" onclick="openNav()"><i class="fa fa-angle-double-left "></i> &nbsp;SOAL</span>
     </div>
+    
     <script>
         var arrayKosong = [];
         var dataIdSoal = '<?= json_encode($soal) ?>'
@@ -63,18 +68,10 @@
             $("#nosoal").controlSidebar(bool);
         }
 
-        function openNav() {
-            document.getElementById("myNav").style.width = "23%";
-        }
-
-        function closeNav() {
-            document.getElementById("myNav").style.width = "0%";
-        }
-
         $(document).ready(function() {
-            var detik = 00;
             isisoal(arrayKosong[0])
             hitung();
+            var detik = 00;
             
             // selisih waktu
             var jamMulai = '<?= $jamMulai ?>',
@@ -116,11 +113,20 @@
             }
         });
 
+        function openNav() {
+            document.getElementById("myNav").style.width = "23%";
+        }
+
+        function closeNav() {
+            document.getElementById("myNav").style.width = "0%";
+        }
+
         function isisoal(soal)
         {
            var mulai_ujian_id = $('#mulai_ujian_id').val()
            var index =  arrayKosong.indexOf(parseInt(soal))
            $('#id_selanjutnya').val(arrayKosong[index+1])
+           $('#id_sebelumnya').val(arrayKosong[index-1])
            $('#id_sekarang').val(soal)
            $('#isisoal').load("/isisoal/"+soal+"/"+mulai_ujian_id)
            cekjumlahsoal()
@@ -169,6 +175,12 @@
             // simpanjawaban(mulai_ujian_id, soal_sekarang, jawaban, ragu)
         }
 
+        function sebelumnya()
+        {
+            var soal = $('#id_sebelumnya').val()
+            isisoal(soal)
+        }
+
         function selesaikan()
         {   
             // ambil variabel yg akan disimpan ke tb_mulai_ujian_detail
@@ -197,21 +209,16 @@
                         }
                     });
                 } else {
-                    alert('Silahkan Koreksi jawaban terlebih dahulu')
-                }
-                
-                // ambil variabel untuk lanjut ke soal berikutnya
-                
+                    toast.success('Silahkan Koreksi jawaban terlebih dahulu')
+                }                
             } else { 
-                alert('Silahkan pilih jawaban terlebih dahulu')
+                toast.success('Silahkan pilih jawaban terlebih dahulu')
             }
-            // simpanjawaban(mulai_ujian_id, soal_sekarang, jawaban, ragu)
         }
 
         function cekjumlahsoal()
         {
             var soalselanjutnya = $('#id_selanjutnya').val()
-            console.log(soalselanjutnya)
             if(soalselanjutnya == '')
             {
                 $('#selesai').show()
@@ -238,22 +245,46 @@
                         'mulai_ujian_id': mulai_ujian_id
                     },
                     success: function(res){
-
+                        var jawaban = ''
+                        if(res.data.mulai_ujian_detail_jawaban == 'a')
+                        {
+                            jawaban = 'A'
+                        }
+                        else if(res.data.mulai_ujian_detail_jawaban == 'b')
+                        {
+                            jawaban = 'B'
+                        }
+                        else if(res.data.mulai_ujian_detail_jawaban == 'c')
+                        {
+                            jawaban = 'C'
+                        }
+                        else if(res.data.mulai_ujian_detail_jawaban == 'd')
+                        {
+                            jawaban = 'D'
+                        }
+                        else if(res.data.mulai_ujian_detail_jawaban == 'e')
+                        {
+                            jawaban = 'E'
+                        }
+                        else
+                        {
+                            jawaban = ''
+                        }
                         if(res.data){
-                            // jika ragu == 1
                             if(res.data.mulai_ujian_detail_ragu_ragu == 1)
                             {
                                 document.getElementById(res.data.soal_id).style.backgroundColor  = '#ffec26'
                                 document.getElementById(res.data.soal_id).style.color  = '#000'
+                                document.getElementById('jawabanSoal'+res.data.soal_id).innerHTML = jawaban
                             }else{
                                 document.getElementById(res.data.soal_id).style.backgroundColor  = '#636ff2'
                                 document.getElementById(res.data.soal_id).style.color  = '#ffffff'
+                                document.getElementById('jawabanSoal'+res.data.soal_id).innerHTML = jawaban
                             }
-                            // $(`input[name='pilihan'][value='${res.data.mulai_ujian_detail_jawaban}']`).prop('checked', true);
                         }
                     }
                 })
-            }
+            } 
         }
         ceksoaldijawab()
 
