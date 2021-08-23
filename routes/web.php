@@ -103,6 +103,14 @@ Route::prefix('cat-admin')->group(function () {
         Route::post('/setting-soal', 'Backend\SettingSoalController@store')->name('setting-soal.store');
         Route::get('/setting-soal/{id}', 'Backend\SettingSoalController@edit')->name('setting-soal.edit');
         
+        // User
+        Route::get('/user', 'Backend\UserController@index')->name('user');
+        Route::get('/user/create', 'Backend\UserController@create')->name('user.create');
+        Route::post('/user', 'Backend\UserController@store')->name('user.store');
+        Route::get('/user/{user}', 'Backend\UserController@edit')->name('user.edit');
+        Route::put('/user/{user}', 'Backend\UserController@update')->name('user.update');
+        Route::delete('/user/{user}', 'Backend\UserController@destroy')->name('user.delete');
+
     });
 
 });
