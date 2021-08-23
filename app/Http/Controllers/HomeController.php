@@ -168,4 +168,51 @@ class HomeController extends Controller
 
         return view('frontend/page/ujian/nilaiskor',$data);
     }
+
+    // api android
+
+    public function tokenapp(Request $r)
+    {
+        $token = $r->token;
+        $user_id = $r->user_id;
+        $tanggal = date('Y-m-d');
+        $jamKini = date("H:i:s");
+        $cektoken = DB::table('tb_token')->where('token_key',$token)->where('token_tanggal',$tanggal)->first();
+        if(!empty($cektoken))
+        {
+            if($jamKini > $cektoken->token_jam_selesai)
+            {
+                return response()->json(['pesan' => 'Waktu Ujian Berakhir']);
+            }else{
+                $soal = DB::select('SELECT a.soal_id FROM `tb_master_soal` a LEFT JOIN tb_kategori_soal b ON a.soal_kategori_id=b.kategori_id');
+
+                // =======================
+                $jamMulai = date("H:i:s");
+                $jamSelesai = $cektoken->token_jam_selesai;
+
+                // simpan data peserta ujian
+                $cek = DB::table('tb_mulai_ujian')
+                        ->where('tb_mulai_ujian.user_id', session('user_id'))
+                        ->where('tb_mulai_ujian.mulai_ujian_tanggal', $tanggal)
+                        ->first();
+                if($cek){
+                    $mulai_ujian_id = $cek->mulai_ujian_id;
+                } else {
+                    $mulai_ujian_id = DB::table('tb_mulai_ujian')->insertGetId([
+                        'user_id' =>  $user_id,
+                        'mulai_ujian_tanggal' => $tanggal,
+                        'mulai_ujian_start' => date("H:i:s")
+                    ]);
+                }        
+
+                return response()->json([
+                    'jamMulai'  => $jamMulai,
+                    'jamSelesai' => $jamSelesai,
+                    'mulaiUjianId' => $mulai_ujian_id
+                ]);
+            }
+        }else{
+            return response()->json(['pesan' => 'Token Expired.']);
+        }
+    }
 }

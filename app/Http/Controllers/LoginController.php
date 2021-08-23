@@ -103,13 +103,31 @@ class LoginController extends Controller
             $cek = DB::table('tb_user')->where('user_nik',$user_nik)->where('user_password',$user_password)->first();
             if($cek == TRUE)
             {
-                return response()->json(array(
+                $data = array(
                     'user_nik' => $cek->user_nik,
                     'user_nama' => $cek->user_nama,
                     'user_id' => $cek->user_id
-                ));
+                );
+                return response()->json(
+                        array(
+                            'status' => true,
+                            'pesan' => 'Login Berhasil',
+                            'data' => $data
+                        )
+                    );
             }else{
-                return response()->json(['pesan' => 'Silahkan Login Kembali']);
+                $data = array(
+                    'user_nik' => '',
+                    'user_nama' => '',
+                    'user_id' => ''
+                );
+                return response()->json(
+                    array(
+                        'status' => false,
+                        'pesan' => 'Login Gagal',
+                        'data' => $data
+                    )
+                );
             }
         }
     }
