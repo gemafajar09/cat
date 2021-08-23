@@ -143,6 +143,7 @@
                                                 <option value="">-- Pilih --</option>
                                                 <option value="text">Text</option>
                                                 <option value="file">Foto</option>
+                                                <option value="audio">Audio</option>
                                             </select>
 
                                             @if( old('soal_ujian_tipe') != '' )
@@ -214,8 +215,8 @@
     </div>
 </section>
 
+@if(!isset($soal))
 <script>
-
     let id_kategori = '{{ $kategori_id }}';
     $('#soal_kategori_id').val(id_kategori).change();
     if(id_kategori == '1'){
@@ -226,8 +227,9 @@
         $('#soal_mapel_id_div').attr('style', 'display: none');
         $('#soal_submapel_id_div').attr('style', 'display: none');
     }
-
-
+</script>
+@endif
+<script>
     $('#soal_kategori_id').change(function (e) { 
         e.preventDefault();
         let id_kategori = this.value;
@@ -276,7 +278,7 @@
             $('.textarea').summernote({
                 height: 200
             });
-        }else if(tipe == 'file'){
+        }else if(tipe == 'file' || tipe == 'audio'){
             document.getElementById("soal_ujian_div").innerHTML += `
             @if(isset($soal)) 
             <img src="{{ asset('images/soal/' .  $soal->soal_ujian) }}" style="height: 250px;">
@@ -608,7 +610,7 @@
                 $('.textarea').summernote({
                     height: 200
                 });
-            }else if(tipe == 'file'){
+            }else if(tipe == 'file' || tipe == 'audio'){
                 document.getElementById("soal_ujian_div").innerHTML += `
                 @if(isset($soal))
                 <img src="{{ asset('images/soal/' . $soal->soal_ujian) }}" style="height: 250px;">
@@ -910,6 +912,18 @@
             }else if(tipe == 'file'){
                 document.getElementById("soal_ujian_div").innerHTML += ` 
                 <img src="{{ asset('images/soal/' . $soal->soal_ujian) }}" style="height: 250px;">
+                <div class="form-group">
+                    <label>Soal</label>
+                    <input type="file" class="form-control @error('soal_ujian') {{ 'is-invalid' }} @enderror" name="soal_ujian" id="soal_ujian" value="{{ old('soal_ujian')  ?? '' }}">
+                </div>
+                @error('soal_ujian')
+                <div class="invalid-feedback">{{ $message }}</div>
+                @enderror`;
+            }else if(tipe == 'audio'){
+                document.getElementById("soal_ujian_div").innerHTML += ` 
+                <audio controls>
+                    <source src="{{ asset('images/soal/'. $soal->soal_ujian) }}" type="audio/ogg">
+                </audio>
                 <div class="form-group">
                     <label>Soal</label>
                     <input type="file" class="form-control @error('soal_ujian') {{ 'is-invalid' }} @enderror" name="soal_ujian" id="soal_ujian" value="{{ old('soal_ujian')  ?? '' }}">

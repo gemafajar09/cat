@@ -18,7 +18,7 @@ class CreateSoalsTable extends Migration
             $table->integer('soal_kategori_id');
             $table->integer('soal_mapel_id')->nullable()->default(0);
             $table->integer('soal_submapel_id')->nullable()->default(0);
-            $table->enum('soal_ujian_tipe', ['text', 'file']);
+            $table->enum('soal_ujian_tipe', ['text', 'file', 'audio']);
             $table->text('soal_ujian')->nullable();
             $table->enum('soal_pilihan_tipe', ['text', 'file']);
             $table->text('soal_a')->nullable();
