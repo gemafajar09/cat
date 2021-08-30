@@ -10,8 +10,6 @@ class Soal extends Model
     protected $primaryKey = 'soal_id';
     protected $fillable = [
         'soal_kategori_id',
-        'soal_mapel_id',
-        'soal_submapel_id',
         'soal_ujian_tipe',
         'soal_ujian',
         'soal_pilihan_tipe',

@@ -52,7 +52,7 @@
         var arrayKosong = [];
         var dataIdSoal = '<?= json_encode($soal) ?>'
         JSON.parse(dataIdSoal).forEach(e => {
-            arrayKosong.push(e.soal_id)
+            arrayKosong.push(e)
         });
 
         var bool = false
@@ -95,6 +95,7 @@
                     document.getElementById('demo').style.color = '#ff0000'
                 };
                 if (minutes == 0 && hours == 0 && detik == 0) {
+                    
                     window.location = '/nilai-skor'
                 };
                 $('#demo').html( hours + ' : ' + minutes + ' : ' + detik );
@@ -106,7 +107,7 @@
                         minutes = 59;
                         hours--;
                         if (hours < 0) {
-                            console.log('habis');
+                            toast.sucess('Waktu Ujian Telah Berakhir.')
                         }
                     }
                 }

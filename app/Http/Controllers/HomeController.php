@@ -17,17 +17,31 @@ class HomeController extends Controller
         $token = $r->token;
         $tanggal = date('Y-m-d');
         $jamKini = date("H:i:s");
-        $cektoken = DB::table('tb_token')->where('token_key',$token)->where('token_tanggal',$tanggal)->first();
+        $cektoken = DB::table('tb_token')
+        ->join('tb_setting_soal','tb_token.token_id','tb_setting_soal.token_id')
+        ->where('tb_token.token_key',$token)
+        ->where('tb_token.token_tanggal',$tanggal)
+        ->first();
         if(!empty($cektoken))
         {
             if($jamKini > $cektoken->token_jam_selesai)
             {
                 return back()->with('pesan', 'Waktu Ujian Telah Berakhir');
             }else{
-                $soal = DB::select('SELECT a.soal_id FROM `tb_master_soal` a LEFT JOIN tb_kategori_soal b ON a.soal_kategori_id=b.kategori_id');
-
+                $kategori = DB::table('tb_kategori_soal')->get();
+                $idSoal = array();
+                $pecah1 = explode(',',$cektoken->kategori_id);
+                $pecah2 = explode(',',$cektoken->setting_soal_jumlah);
+                foreach($kategori as $i => $a)
+                {
+                    $soal = DB::table('tb_master_soal')->join('tb_kategori_soal','tb_master_soal.soal_kategori_id','tb_kategori_soal.kategori_id')->where('tb_master_soal.soal_kategori_id',$pecah1[$i])->limit($pecah2[$i])->get();
+                    foreach($soal as $b)
+                    {
+                        $idSoal[] = $b->soal_id;
+                    }
+                }
                 // =======================
-                $data['soal'] = $soal;
+                $data['soal'] = $idSoal;
                 $data['jamMulai'] = date("H:i:s");
                 $data['jamSelesai'] = $cektoken->token_jam_selesai;
 
