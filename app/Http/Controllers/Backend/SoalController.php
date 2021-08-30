@@ -71,16 +71,19 @@ class SoalController extends Controller
 
         if($request->input('soal_ujian_tipe')  == 'text'){
             $soal->soal_ujian = $request->input('soal_ujian'); 
+
         }elseif($request->input('soal_ujian_tipe')  == 'file'){
             $validator = Validator::make($request->all(), [
                 'soal_ujian'         => 'required|image:jpg,png,jpeg,mp3,mp4,'
             ]);
+
             if ($validator->fails()) {
                 return redirect()
                     ->back()
                     ->withErrors($validator)
                     ->withInput();
             }
+
             $foto = $request->file('soal_ujian');
             $filename = time() . "-soal." . $foto->getClientOriginalExtension();
             $foto->move('upload/gambar/', $filename);
@@ -218,6 +221,7 @@ class SoalController extends Controller
             $validator = Validator::make($request->all(), [
                 'soal_ujian'         => 'image:jpg,png,jpeg,mp3,mp4',
             ]);
+
             if ($validator->fails()) {
                 return redirect()
                     ->back()
@@ -228,6 +232,9 @@ class SoalController extends Controller
             if ($request->hasFile('soal_ujian')) {
                 if($soal->soal_ujian_tipe == 'file'){
                     unlink('upload/gambar/'. $soal->soal_ujian);
+                }
+                if($soal->soal_ujian_tipe == 'audio'){
+                    unlink('images/soal/'. $soal->soal_ujian);
                 }
                 $foto = $request->file('soal_ujian');
                 $filename = time() . "-soal." . $foto->getClientOriginalExtension();
@@ -349,6 +356,9 @@ class SoalController extends Controller
         if($soal->soal_ujian_tipe == 'file'){
             unlink('images/soal/' . $soal->soal_ujian);
         }
+        if($soal->soal_ujian_tipe == 'audio'){
+            unlink('images/soal/' . $soal->soal_ujian);
+        }
 
         if($soal->soal_pilihan_tipe == 'file'){
             unlink('images/soal/' . $soal->soal_a);
@@ -405,7 +415,9 @@ class SoalController extends Controller
                                         <img src="' . asset('images/soal/'. $row->soal_ujian) . '" style="width: 200px; height: 200px; display: block;margin-left: auto; margin-right: auto;">
                                         ';
                         }elseif($row->soal_ujian_tipe == 'audio'){
+
                             $actionBtn = $row->soal_ujian;
+
                         }
                         return $actionBtn;
                     })
@@ -457,7 +469,7 @@ class SoalController extends Controller
                     ->join('tb_mapel', 'tb_mapel.mapel_id', 'tb_submapel.submapel_mapel_id',)
                     ->where('submapel_id', $id)
                     ->first();
-
+        
         return view('backend/pages/soal/soal-submapel',[
             'active' => 'soal',
             'submapel' => $submapel,
@@ -479,9 +491,15 @@ class SoalController extends Controller
                     ->addColumn('soal', function($row){
                         if($row->soal_ujian_tipe == 'text'){
                             $actionBtn = $row->soal_ujian;
-                        }else{
+                        }elseif($row->soal_ujian_tipe == 'file'){
                             $actionBtn = '
                                         <img src="' . asset('images/soal/'. $row->soal_ujian) . '" style="width: 200px; height: 200px; display: block;margin-left: auto; margin-right: auto;">
+                                        ';
+                        }elseif($row->soal_ujian_tipe == 'audio'){
+                            $actionBtn = '
+                                        <audio controls>
+                                            <source src="' . asset('images/soal/'. $row->soal_ujian) .'" type="audio/ogg">
+                                        </audio>
                                         ';
                         }
                         return $actionBtn;

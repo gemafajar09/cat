@@ -55,6 +55,7 @@
                                                 <option value="">-- Pilih --</option>
                                                 <option value="text">Text</option>
                                                 <option value="file">Foto</option>
+                                                <option value="audio">Audio</option>
                                             </select>
 
                                             @if( old('soal_ujian_tipe') != '' )
@@ -127,8 +128,8 @@
     </div>
 </section>
 
+@if(!isset($soal))
 <script>
-
     // cari data submapel
     $('#soal_mapel_id').change(function (e) { 
         e.preventDefault();
@@ -165,7 +166,7 @@
             $('.textarea').summernote({
                 height: 200
             });
-        }else if(tipe == 'file'){
+        }else if(tipe == 'file' || tipe == 'audio'){
             document.getElementById("soal_ujian_div").innerHTML += `
             @if(isset($soal)) 
             <img src="{{ asset('images/soal/' .  $soal->soal_ujian) }}" style="height: 250px;">
@@ -577,7 +578,7 @@
                 $('.textarea').summernote({
                     height: 200
                 });
-            }else if(tipe == 'file'){
+            }else if(tipe == 'file' || tipe == 'audio'){
                 document.getElementById("soal_ujian_div").innerHTML += `
                 @if(isset($soal))
                 <img src="{{ asset('images/soal/' . $soal->soal_ujian) }}" style="height: 250px;">
@@ -1000,7 +1001,9 @@
                 @enderror`;
             }else if(tipe == 'audio'){
                 document.getElementById("soal_ujian_div").innerHTML += ` 
+
                 <img src="{{ asset('upload/audio/' . $soal->soal_ujian) }}" style="height: 250px;">
+
                 <div class="form-group">
                     <label>Soal</label>
                     <input type="file" class="form-control @error('soal_ujian') {{ 'is-invalid' }} @enderror" name="soal_ujian" id="soal_ujian" value="{{ old('soal_ujian')  ?? '' }}">
