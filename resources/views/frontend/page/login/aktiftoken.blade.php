@@ -41,4 +41,15 @@
         </div>
     </div>
 </div>
+
+@if(session('pesan') == true)
+    <script>
+        toast.success('<?= session('pesan') ?>')
+    </script>
+@endif
+@if(session('error') == true)
+    <script>
+        toast.error('<?= session('error') ?>')
+    </script>
+@endif
 @endsection

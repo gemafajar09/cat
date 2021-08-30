@@ -125,7 +125,6 @@ class LoginController extends Controller
                     array(
                         'status' => false,
                         'pesan' => 'Login Gagal',
-                        'data' => $data
                     )
                 );
             }

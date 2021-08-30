@@ -13,9 +13,14 @@
 
 <body>
     @include('frontend/script')  
-    @if(session('pesan') == TRUE)
+    @if(session('pesan') == true)
         <script>
-            alert("{{session('pesan')}}")
+            toast.success('<?= session('pesan') ?>')
+        </script>
+    @endif
+    @if(session('error') == true)
+        <script>
+            toast.error('<?= session('error') ?>')
         </script>
     @endif
     <div class="row">  

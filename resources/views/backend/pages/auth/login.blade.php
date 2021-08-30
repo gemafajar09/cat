@@ -191,7 +191,7 @@
             <div class="row d-flex">
                 <div class="col-lg-6">
                     <div class="card1 pb-5">
-                        <div class="row"> <img src="{{ asset('dist/img/logo-swimoc.png') }}" class="logo">
+                        <div class="row"> <img src="{{ asset('images/appstore.png') }}" class="logo">
                         </div>
                         <div class="row px-3 justify-content-center mt-4 mb-5 border-line"> <img
                                 src="{{ asset('dist/img/login.svg') }}" class="image"> </div>
