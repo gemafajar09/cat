@@ -1,7 +1,7 @@
 @extends('frontend/index')
 @section('content')
     <div class="container">
-        <div id="form-login" class="card mx-auto" style="margin-top:20%">
+        <div id="form-login" class="card mx-auto" style="margin-top:10%">
             <div class="card-body">
                 <center>
                     <label id="label-login" for="">Login CAT</label>
@@ -23,12 +23,16 @@
                             <span class="input-group-text"><i class="fa fa-lock"></i></span>
                         </div>
                     </div> 
-                    <div class="form-check">
+                    <div class="float-left form-check">
                         <input type="checkbox" class="form-check-input" id="exampleCheck2">
                         <label class="form-check-label" for="exampleCheck2">Remember me</label>
-                      </div>
+                    </div>
+                    <div class="float-right">
+                        <a href="{{route('daftar')}}">Daftar Disini</a>
+                    </div>
+                    <br>
                     <div align="right">
-                        <button class="btn btn-primary" type="submit">Login</button>
+                        <button class="btn btn-primary btn-block" type="submit">Login</button>
                     </div>
                 </form>
             </div>
