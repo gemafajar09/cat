@@ -110,7 +110,7 @@ class UserController extends Controller
             ->with('message', 'Data berhasil diedit');
     }
 
-    public function destroy(user $user)
+    public function destroy(UserModel $user)
     {
         $user->forceDelete();
 

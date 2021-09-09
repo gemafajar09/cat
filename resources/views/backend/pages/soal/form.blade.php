@@ -45,7 +45,7 @@
                             @endif
                             <div class="card-body">
                                 <div class="row">
-                                    <input type="hidden" name="soal_kategori_id" id="soal_kategori_id" value="<?= $kategori_id ?>">
+                                    <input type="hidden" name="soal_kategori_id" id="soal_kategori_id" value="{{ (isset($soal)) ? $soal->soal_kategori_id : $kategori_id }}">
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Tipe Soal</label>
@@ -557,7 +557,7 @@
     });
 
 </script>
-
+@endif
 @if(count($errors) > 0)
     <script>
         $(document).ready(function () {
