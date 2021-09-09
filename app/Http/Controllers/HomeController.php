@@ -37,7 +37,7 @@ class HomeController extends Controller
                     $soal = DB::table('tb_master_soal')->join('tb_kategori_soal','tb_master_soal.soal_kategori_id','tb_kategori_soal.kategori_id')->where('tb_master_soal.soal_kategori_id',$pecah1[$i])->limit($pecah2[$i])->get();
                     foreach($soal as $b)
                     {
-                        $idSoal[] = $b->soal_id;
+                        $idSoal[] = (int)$b->soal_id;
                     }
                 }
                 // =======================
@@ -253,4 +253,5 @@ class HomeController extends Controller
             );
         }
     }
+
 }
