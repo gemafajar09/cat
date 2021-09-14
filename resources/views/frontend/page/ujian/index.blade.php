@@ -1,9 +1,7 @@
 @extends('frontend/index')
 @section('content')
-@include('frontend/page/ujian/listsoal')
-    <!-- <div class="col-md-12">
-        @include('frontend/navbar')
-    </div> -->
+    <div id="myNav" class="overlay w3-card-4"></div>
+
     <input type="hidden" name="mulai_ujian_id" id="mulai_ujian_id" value="{{$mulai_ujian_id}}">
     <input type="hidden" id="id_selanjutnya">
     <input type="hidden" id="id_sebelumnya">
@@ -72,7 +70,7 @@
             isisoal(arrayKosong[0])
             hitung();
             var detik = 00;
-            
+            var mulai_ujian_id = $('#mulai_ujian_id').val();
             // selisih waktu
             var jamMulai = '<?= $jamMulai ?>',
                 jamSelesai = '<?= $jamSelesai ?>',
@@ -96,7 +94,7 @@
                 };
                 if (minutes == 0 && hours == 0 && detik == 0) {
                     
-                    window.location = '/nilai-skor'
+                    window.location = '/nilai-skor/'+mulai_ujian_id
                 };
                 $('#demo').html( hours + ' : ' + minutes + ' : ' + detik );
                 detik--;
@@ -115,7 +113,9 @@
         });
 
         function openNav() {
+            var id_ujian = $('#mulai_ujian_id').val()
             document.getElementById("myNav").style.width = "23%";
+            $('#myNav').load("listsoal/{{$id_kategori}}/{{$setting_soal_jumlah}}/"+id_ujian);
         }
 
         function closeNav() {
@@ -131,6 +131,7 @@
            $('#id_sekarang').val(soal)
            $('#isisoal').load("/isisoal/"+soal+"/"+mulai_ujian_id)
            cekjumlahsoal()
+           document.getElementById('ragu').checked = false
            if(mulai_ujian_id != '')
            {
                $('#tampiljumlahterjawab').show()
@@ -168,8 +169,10 @@
                 $('#id_selanjutnya').val(arrayKosong[index+1])
                 $('#id_sekarang').val(soal)
                 isisoal(soal)
-                ceksoaldijawab()
+                // ceksoaldijawab()
                 cekjumlahsoal()
+                closeNav()
+                document.getElementById('ragu').checked = false
             } else { 
                 alert('Silahkan pilih jawaban terlebih dahulu')
             }
@@ -180,6 +183,8 @@
         {
             var soal = $('#id_sebelumnya').val()
             isisoal(soal)
+            closeNav()
+            document.getElementById('ragu').checked = false
         }
 
         function selesaikan()
@@ -215,6 +220,8 @@
             } else { 
                 toast.success('Silahkan pilih jawaban terlebih dahulu')
             }
+            closeNav()
+            document.getElementById('ragu').checked = false
         }
 
         function cekjumlahsoal()
@@ -230,64 +237,64 @@
             }
         }
 
-        function ceksoaldijawab()
-        {
-            var mulai_ujian_id = $('#mulai_ujian_id').val();
-            for(var i=0; i < arrayKosong.length; i++)
-            {
-                var soal_id = arrayKosong[i];
-                $.ajax({
-                    url: '{{ route('cekJawaban') }}',
-                    type: 'POST',
-                    dataType: 'json',
-                    data: {
-                        "_token" : "{{ csrf_token() }}",
-                        "soal_id" : arrayKosong[i],
-                        'mulai_ujian_id': mulai_ujian_id
-                    },
-                    success: function(res){
-                        var jawaban = ''
-                        if(res.data.mulai_ujian_detail_jawaban == 'a')
-                        {
-                            jawaban = 'A'
-                        }
-                        else if(res.data.mulai_ujian_detail_jawaban == 'b')
-                        {
-                            jawaban = 'B'
-                        }
-                        else if(res.data.mulai_ujian_detail_jawaban == 'c')
-                        {
-                            jawaban = 'C'
-                        }
-                        else if(res.data.mulai_ujian_detail_jawaban == 'd')
-                        {
-                            jawaban = 'D'
-                        }
-                        else if(res.data.mulai_ujian_detail_jawaban == 'e')
-                        {
-                            jawaban = 'E'
-                        }
-                        else
-                        {
-                            jawaban = ''
-                        }
-                        if(res.data){
-                            if(res.data.mulai_ujian_detail_ragu_ragu == 1)
-                            {
-                                document.getElementById(res.data.soal_id).style.backgroundColor  = '#ffec26'
-                                document.getElementById(res.data.soal_id).style.color  = '#000'
-                                document.getElementById('jawabanSoal'+res.data.soal_id).innerHTML = jawaban
-                            }else{
-                                document.getElementById(res.data.soal_id).style.backgroundColor  = '#636ff2'
-                                document.getElementById(res.data.soal_id).style.color  = '#ffffff'
-                                document.getElementById('jawabanSoal'+res.data.soal_id).innerHTML = jawaban
-                            }
-                        }
-                    }
-                })
-            } 
-        }
-        ceksoaldijawab()
+        // function ceksoaldijawab()
+        // {
+        //     var mulai_ujian_id = $('#mulai_ujian_id').val();
+        //     for(var i=0; i < arrayKosong.length; i++)
+        //     {
+        //         var soal_id = arrayKosong[i];
+        //         $.ajax({
+        //             url: '{{ route('cekJawaban') }}',
+        //             type: 'POST',
+        //             dataType: 'json',
+        //             data: {
+        //                 "_token" : "{{ csrf_token() }}",
+        //                 "soal_id" : arrayKosong[i],
+        //                 'mulai_ujian_id': mulai_ujian_id
+        //             },
+        //             success: function(res){
+        //                 var jawaban = ''
+        //                 if(res.data.mulai_ujian_detail_jawaban == 'a')
+        //                 {
+        //                     jawaban = 'A'
+        //                 }
+        //                 else if(res.data.mulai_ujian_detail_jawaban == 'b')
+        //                 {
+        //                     jawaban = 'B'
+        //                 }
+        //                 else if(res.data.mulai_ujian_detail_jawaban == 'c')
+        //                 {
+        //                     jawaban = 'C'
+        //                 }
+        //                 else if(res.data.mulai_ujian_detail_jawaban == 'd')
+        //                 {
+        //                     jawaban = 'D'
+        //                 }
+        //                 else if(res.data.mulai_ujian_detail_jawaban == 'e')
+        //                 {
+        //                     jawaban = 'E'
+        //                 }
+        //                 else
+        //                 {
+        //                     jawaban = ''
+        //                 }
+        //                 if(res.data){
+        //                     if(res.data.mulai_ujian_detail_ragu_ragu == 1)
+        //                     {
+        //                         document.getElementById(res.data.soal_id).style.backgroundColor  = '#ffec26'
+        //                         document.getElementById(res.data.soal_id).style.color  = '#000'
+        //                         document.getElementById('jawabanSoal'+res.data.soal_id).innerHTML = jawaban
+        //                     }else{
+        //                         document.getElementById(res.data.soal_id).style.backgroundColor  = '#636ff2'
+        //                         document.getElementById(res.data.soal_id).style.color  = '#ffffff'
+        //                         document.getElementById('jawabanSoal'+res.data.soal_id).innerHTML = jawaban
+        //                     }
+        //                 }
+        //             }
+        //         })
+        //     } 
+        // }
+        // ceksoaldijawab()
 
         // // mematikan function browser
         // $(document).bind("contextmenu",function(e) {

@@ -44,6 +44,8 @@ class HomeController extends Controller
                 $data['soal'] = $idSoal;
                 $data['jamMulai'] = date("H:i:s");
                 $data['jamSelesai'] = $cektoken->token_jam_selesai;
+                $data['id_kategori'] = $cektoken->kategori_id;
+                $data['setting_soal_jumlah'] = $cektoken->setting_soal_jumlah;
 
                 // simpan data peserta ujian
                 $cek = DB::table('tb_mulai_ujian')
@@ -100,6 +102,26 @@ class HomeController extends Controller
         }
         $data['cekisian'] = $jawab;
         return view('frontend/page/ujian/isisoal',$data);
+    }
+
+    public function listsoal($kategori_id,$setting_soal_jumlah,$mulai_ujian_id)
+    {
+        $kategori = DB::table('tb_kategori_soal')->get();
+        $idSoal = array();
+        $pecah1 = explode(',',$kategori_id);
+        $pecah2 = explode(',',$setting_soal_jumlah);
+        foreach($kategori as $i => $a)
+        {
+            $soal = DB::table('tb_master_soal')->join('tb_kategori_soal','tb_master_soal.soal_kategori_id','tb_kategori_soal.kategori_id')->where('tb_master_soal.soal_kategori_id',$pecah1[$i])->limit($pecah2[$i])->get();
+            foreach($soal as $b)
+            {
+                $idSoal[] = (int)$b->soal_id;
+            }
+        }
+        // =======================
+        $data['soals'] = $idSoal;
+        $data['mulai_ujian_id'] = $mulai_ujian_id;
+        return view('frontend/page/ujian/listsoal',$data);
     }
     
     public function simpanJawaban(Request $r)
