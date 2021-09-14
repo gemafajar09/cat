@@ -15,6 +15,7 @@ Route::post('/ujian-mulai', 'HomeController@mulaiujian')->name('ujian-mulai');
 Route::get('/isisoal/{idsoal}/{idujian}', 'HomeController@isisoal');
 
 // simpan ke tb_mulai_ujian_detail
+Route::get('/listsoal/{kategori}/{soal}/{id_ujian}','HomeController@listsoal')->name('listsoal');
 Route::post('/simpan-jawaban', 'HomeController@simpanJawaban')->name('simpanJawaban');
 Route::post('/cek-jawaban', 'HomeController@cekJawaban')->name('cekJawaban');
 
